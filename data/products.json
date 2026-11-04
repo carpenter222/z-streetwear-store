@@ -1,0 +1,144 @@
+[
+  {
+    "id": 6,
+    "name_en": "Z INDUSTRIAL WEBBED BELT",
+    "name_ar": "حزام Z تكتيكي كويك ريليس",
+    "description_en": "Ballistic military nylon webbing belt with quick-release zinc alloy buckle featuring laser-etched crimson Z branding.",
+    "description_ar": "حزام نايلون عسكري متين ومقاوم للتمزق مع إبزيم معدني سريع الفك محفور عليه شعار Z بالليزر.",
+    "price": 750,
+    "sale_price": null,
+    "badge_en": "RESTOCKED",
+    "badge_ar": "تم التجديد",
+    "category": "accessories",
+    "section": "featured",
+    "sizes": [
+      "ADJUSTABLE (125CM)"
+    ],
+    "image": "images/z-belt-card.png",
+    "visible": true
+  },
+  {
+    "id": 4,
+    "name_en": "Z SIGNATURE BASEBALL CAP",
+    "name_ar": "كاب Z بيسبول كلاسيكي",
+    "description_en": "Low-profile structured 6-panel cap in midnight black. 3D crimson Z emblem with matte gunmetal sizing buckle.",
+    "description_ar": "كاب بيسبول أسود منتظم بـ 6 ألواح، مطرز بشعار Z قرمزي بارز وإبزيم معدني داكن للتحكم بالمقاس.",
+    "price": 450,
+    "sale_price": null,
+    "badge_en": "NEW DROP",
+    "badge_ar": "إصدار جديد",
+    "category": "caps",
+    "section": "new_arrivals",
+    "sizes": [
+      "ONE SIZE"
+    ],
+    "image": "images/z-cap-card.png",
+    "visible": true
+  },
+  {
+    "id": 1,
+    "name_en": "Z SIGNATURE OVERSIZED TEE",
+    "name_ar": "تيشيرت Z أوفر سايز هيفي ويت",
+    "description_en": "Crafted from 320 GSM luxury combed cotton. Dropped shoulder streetwear cut with precision crimson embroidered Z lightning emblem on the left chest.",
+    "description_ar": "مصنوع من قطن فاخر ممشط بوزن 320 جرام. قصة أوفر سايز بأكتاف ساقطة مع تطريز دقيق لشعار Z القرمزي على الصدر.",
+    "price": 850,
+    "sale_price": null,
+    "badge_en": "NEW DROP",
+    "badge_ar": "إصدار جديد",
+    "category": "tees",
+    "section": "featured",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "image": "images/z-tee.jpg",
+    "visible": true
+  },
+  {
+    "id": 7,
+    "name_en": "Z AIR-MESH TRUCKER CAP",
+    "name_ar": "كاب Z تراكر شبك مسامي",
+    "description_en": "Breathable rear mesh panels, pre-curved brim, and high-density puff embroidered crimson Z on front crown.",
+    "description_ar": "كاب تراكر بشبكة تهوية خلفية، ونقاب مقوس مع تطريز بارز لشعار Z القرمزي على الواجهة.",
+    "price": 500,
+    "sale_price": null,
+    "badge_en": "HOT DROP",
+    "badge_ar": "الأكثر رواجاً",
+    "category": "caps",
+    "section": "essentials",
+    "sizes": [
+      "ONE SIZE"
+    ],
+    "image": "images/z-trucker-cap-card.png",
+    "visible": true
+  },
+  {
+    "id": 5,
+    "name_en": "Z ERGONOMIC FOAM SLIDES",
+    "name_ar": "سلايدز Z فوم مريح",
+    "description_en": "Molded high-density EVA footbed offering cloud-like arch support. Bold embossed crimson Z typography on textured strap.",
+    "description_ar": "سلايدز مريح بنعل فوم إيفا عالي الكثافة مع دعم لقوس القدم وتصميم بارز لشعار Z على السير العريض.",
+    "price": 600,
+    "sale_price": 550,
+    "badge_en": "SALE",
+    "badge_ar": "تخفيض",
+    "category": "footwear",
+    "section": "new_arrivals",
+    "sizes": [
+      "40",
+      "41",
+      "42",
+      "43",
+      "44",
+      "45"
+    ],
+    "image": "images/z-slides-card.png",
+    "visible": true
+  },
+  {
+    "id": 2,
+    "name_en": "Z TACTICAL BOMBER JACKET",
+    "name_ar": "جاكيت Z بومبر تكتيكي سحاب",
+    "description_en": "Engineered matte-black shell jacket with heavy-gauge industrial zipper, thermal ribbed storm cuffs, and embroidered crimson Z chest signature.",
+    "description_ar": "جاكيت تكتيكي أسود مطفي مع سحاب معدني صناعي قوي، وياقة مرتفعة، وأساور مضلعة عازلة مع تطريز أحمر بارز.",
+    "price": 1850,
+    "sale_price": 1650,
+    "badge_en": "BEST SELLER",
+    "badge_ar": "الأكثر طلباً",
+    "category": "jackets",
+    "section": "featured",
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "image": "images/z-jacket.jpg",
+    "visible": true
+  },
+  {
+    "id": 3,
+    "name_en": "Z RELAXED FIT PANTS",
+    "name_ar": "بنطلون Z ريلاكسد كلاسيك",
+    "description_en": "Heavy-duty relaxed streetwear trousers with comfortable straight-leg silhouette, deep pockets, and signature crimson Z embroidery.",
+    "description_ar": "بنطلون قطني متين بقصة ستريت وير مستقيمة ومريحة مع جيوب عملية وتطريز أحمر مميز لشعار Z.",
+    "price": 1250,
+    "sale_price": null,
+    "badge_en": "LIMITED",
+    "badge_ar": "كمية محدودة",
+    "category": "pants",
+    "section": "featured",
+    "sizes": [
+      "30",
+      "32",
+      "34",
+      "36",
+      "38"
+    ],
+    "image": "images/z-pants.jpg",
+    "visible": true
+  }
+]

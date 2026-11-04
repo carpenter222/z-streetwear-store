@@ -1,109 +1,124 @@
-# "Z" Streetwear — Full-Stack Web Application & Admin Dashboard
+# Z Streetwear — متجر مجاني على GitHub Pages
 
-A high-performance, dark-themed Streetwear eCommerce platform with an industrial "Zero Gravity" aesthetic, built using **Node.js**, **Express**, **SQLite (relational SQL with foreign keys & transactions)**, and modern responsive JavaScript/CSS.
+الموقع ده **ببلاش بالكامل**: مفيش سيرفر، مفيش استضافة، مفيش قاعدة بيانات.
+GitHub بينشر الموقع لوحده، وأي تعديل بيظهر على الموقع في خلال دقيقة أو اتنين.
 
----
-
-## 🚀 Key Features
-
-### 1. Storefront (Front-End UI/UX)
-- **Signature Aesthetics**: Dark midnight theme (`#070707`), striking crimson accents (`#ff1735`), industrial typography (`Barlow Condensed` for impact headlines and `Inter` for clean readability).
-- **Anti-Gravity Physics**: Floating geometric archive badges, ambient hover tilt on product cards (`rotateX` / `rotateY` 3D perspective), and levitating elements.
-- **Dynamic Catalog**: Live category filtering, instant debounce search, color & size selectors.
-- **Slide-Out Bag & Checkout**: Slide-out cart drawer with live subtotal calculation, coupon/promo code engine, and a complete order checkout modal.
-
-### 2. Relational Database & Backend API
-- **SQLite Engine**: Zero-configuration, lightning-fast native relational database.
-- **Referential Integrity**: Cascading deletes, check constraints, foreign keys for Users, Categories, Products, Promotions, Orders, and Order Items.
-- **Security**: JWT (JSON Web Tokens) with `bcryptjs` salted password hashing for administrative access.
-- **Transactions**: Atomic transactions (`BEGIN` ... `COMMIT` / `ROLLBACK`) for order submissions and stock inventory decrement.
-
-### 3. Professional Admin Dashboard (`/admin`)
-- **Key Metrics (KPIs)**: Live tracking of Total Sales Revenue, Total Orders, Pending Logistics, and Low Stock inventory alerts.
-- **Product Management (CRUD)**: Add, edit, or delete clothing items, configure image URLs, custom badges (`NEW DROP`, `BEST SELLER`, `LIMITED`), stock count, and size runs.
-- **Order Logistics**: View customer contact and delivery details, breakdown of purchased items, and instant live status transitions (`Pending` ➔ `Processing` ➔ `Shipped` ➔ `Delivered` ➔ `Cancelled`).
-- **Promotions & Headlines**: Live real-time updater for the top announcement banner text and streaming marquee ticker, plus coupon code creation with percentage or fixed discounts.
+- **المنتجات** في ملف [`data/products.json`](data/products.json)
+- **باقي إعدادات المتجر** (رقم الواتساب، شريط الإعلان، الأقسام، الكاتيجوريز، أكواد الخصم) في [`data/store.json`](data/store.json)
+- **الصور** في فولدر [`images/`](images)
+- **الطلبات** بتوصل على **واتساب** المتجر، فيها المنتجات والمقاسات والإجمالي وبيانات العميل.
 
 ---
 
-## 📁 Project Architecture
+## أول حاجة: حط رقم الواتساب
 
-```
-z-streetwear-store/
-├── package.json            # Node.js project manifest & dependencies
-├── server.js               # Express API server with JWT Auth & endpoints
-├── db.js                   # SQLite connection, seeding & relational models
-├── schema.sql              # Relational SQL DDL commands (DDL & constraints)
-├── public/                 # Static web assets
-│   ├── index.html          # Refactored Storefront (Zero-Gravity Streetwear)
-│   ├── admin.html          # Professional Admin Command Center
-│   ├── css/
-│   │   ├── style.css       # Storefront styles (Barlow Condensed, Glow, Floating)
-│   │   └── admin.css       # Admin dashboard styles (Dark cyberpunk UI)
-│   └── js/
-│       ├── store.js        # Storefront client logic (Cart, API, 3D tilt)
-│       └── admin.js        # Admin client logic (JWT Auth, CRUD, Statuses)
-└── README.md
+افتح `data/store.json` واكتب رقم واتساب المتجر:
+
+```json
+"whatsapp_number": "01012345678",
 ```
 
 ---
 
-## 🛠️ Step-by-Step Instructions to Run Locally
+## إزاي تعدّل ملف على GitHub
 
-### 1. Prerequisites
-Ensure you have **Node.js** (v18 or higher; v22+ / v24 recommended) installed on your machine.
+1. افتح الملف على github.com (مثلاً `data/products.json`).
+2. دوس على أيقونة القلم ✏️ (Edit this file).
+3. عدّل اللي انت عايزه.
+4. دوس **Commit changes** الأخضر، وبعدين **Commit changes** تاني.
+5. استنى دقيقة أو اتنين، وافتح الموقع.
 
-### 2. Navigate to the project directory
-```bash
-cd "C:\Users\ASUS ROG\.gemini\antigravity\scratch\z-streetwear-store"
-```
-
-### 3. Install dependencies (if setting up on a fresh machine)
-```bash
-npm install
-```
-
-### 4. Start the server
-```bash
-node server.js
-```
-
-### 5. Access the applications
-- **Customer Storefront**: [http://localhost:3000](http://localhost:3000)
-- **Admin Dashboard**: [http://localhost:3000/admin](http://localhost:3000/admin)
+> **مهم:** خلي بالك من الفواصل `,` وعلامات التنصيص `" "`. لو الملف فيه غلطة، المنتجات مش هتظهر.
+> لو حصل كده، افتح الملف تاني وصلّح الغلطة، أو ارجع للنسخة القديمة من **History**.
 
 ---
 
-## 🔑 Default Admin Credentials
+## إضافة منتج جديد (مثلاً تيشيرت)
 
-| Field | Default Value |
+### 1. ارفع الصورة
+
+1. افتح فولدر `images` على GitHub.
+2. دوس **Add file** ← **Upload files**.
+3. اسحب الصورة، ويُفضّل اسمها يكون إنجليزي من غير مسافات، زي `black-tee.jpg`.
+4. دوس **Commit changes**.
+
+### 2. ضيف المنتج في `data/products.json`
+
+انسخ منتج موجود، وحطه بعد آخر منتج، وغيّر بياناته. افتكر تحط `,` بين كل منتج والتاني.
+
+```json
+  {
+    "id": 8,
+    "name_en": "Z BLACK BASIC TEE",
+    "name_ar": "تيشيرت Z أسود بيسك",
+    "description_en": "Soft cotton everyday tee.",
+    "description_ar": "تيشيرت قطن ناعم للاستخدام اليومي.",
+    "price": 600,
+    "sale_price": null,
+    "badge_en": "NEW DROP",
+    "badge_ar": "إصدار جديد",
+    "category": "tees",
+    "section": "new_arrivals",
+    "sizes": ["S", "M", "L", "XL"],
+    "image": "images/black-tee.jpg",
+    "visible": true
+  }
+```
+
+| الخانة | معناها |
 |---|---|
-| **Username** | `admin` |
-| **Password** | `zstreetwear2026` |
+| `id` | رقم مختلف لكل منتج، ما يتكررش |
+| `name_en` / `name_ar` | اسم المنتج بالإنجليزي والعربي |
+| `description_en` / `description_ar` | الوصف |
+| `price` | السعر بالجنيه |
+| `sale_price` | سعر الخصم، أو `null` لو مفيش خصم |
+| `badge_en` / `badge_ar` | الشارة اللي على الصورة، أو `""` لو مش عايزها |
+| `category` | الكاتيجوري: `tees` / `jackets` / `pants` / `caps` / `footwear` / `accessories` |
+| `section` | القسم في الصفحة: `featured` / `new_arrivals` / `essentials` |
+| `sizes` | المقاسات |
+| `image` | مسار الصورة، زي `images/black-tee.jpg` |
+| `visible` | `true` يظهر، `false` يتخفي من غير ما يتمسح |
+
+## تعديل منتج
+
+افتح `data/products.json`، ودوّر على المنتج، وغيّر السعر أو الاسم أو أي حاجة، وبعدين **Commit**.
+
+## مسح منتج
+
+- **تخفيه بس:** خلي `"visible": false`. ده الأسهل، وتقدر ترجّعه بعدين.
+- **تمسحه نهائي:** امسح المنتج كله من `{` لحد `}`، وامسح الفاصلة اللي قبله أو بعده.
+
+## ترتيب المنتجات
+
+المنتجات بتظهر بنفس ترتيبها في الملف جوه كل قسم.
+
+## أكواد الخصم
+
+في `data/store.json` تحت `promo_codes`:
+
+```json
+{ "code": "ZDROP10", "type": "percentage", "value": 10, "min_order": 500 }
+```
+
+- `type`: إما `percentage` (نسبة %) أو `fixed` (مبلغ ثابت بالجنيه).
+- `min_order`: أقل قيمة طلب عشان الكود يشتغل.
+
+> الأكواد مكتوبة في ملف عام، فأي حد شاطر يقدر يشوفها. ما تحطش أكواد سرية.
 
 ---
 
-## ⚡ REST API Endpoints Overview
+## تشغيل GitHub Pages (مرة واحدة بس)
 
-### Public Endpoints
-- `GET /api/settings` — Get live announcement banner & ticker texts
-- `GET /api/categories` — Get active categories
-- `GET /api/products` — Search and filter products (`?category=caps&search=hoodie`)
-- `GET /api/products/:id` — Get product details
-- `POST /api/promotions/validate` — Validate promo code against current cart
-- `POST /api/orders` — Create customer order with atomic stock validation
-- `POST /api/auth/login` — Authenticate admin and receive JWT token
+1. في صفحة الـ repository، افتح **Settings** ← **Pages**.
+2. في **Source** اختار **Deploy from a branch**.
+3. في **Branch** اختار `main` والفولدر `/ (root)`، ودوس **Save**.
+4. بعد دقيقة أو اتنين، هيظهر لينك الموقع، وشكله كده:
+   `https://USERNAME.github.io/z-streetwear-store/`
 
-### Admin Protected Endpoints (`Authorization: Bearer <token>`)
-- `GET /api/admin/metrics` — Dashboard KPI stats
-- `GET /api/admin/products` — Retrieve all catalog items
-- `POST /api/admin/products` — Create new piece
-- `PUT /api/admin/products/:id` — Update piece details
-- `DELETE /api/admin/products/:id` — Remove piece from store
-- `GET /api/admin/orders` — View customer orders with item details
-- `PUT /api/admin/orders/:id/status` — Update order fulfillment state
-- `GET /api/admin/promotions` — View coupons
-- `POST /api/admin/promotions` — Create new promo coupon
-- `PUT /api/admin/promotions/:id` — Toggle coupon active status
-- `DELETE /api/admin/promotions/:id` — Delete coupon
-- `PUT /api/admin/settings` — Update top banner text & ticker live
+## تجربة الموقع على الكمبيوتر
+
+الموقع محتاج يتفتح من سيرفر صغير، مش بالدبل كليك. من فولدر المشروع شغّل:
+
+```bash
+npx serve .
+```

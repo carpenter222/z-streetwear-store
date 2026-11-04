@@ -35,10 +35,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     initTheme();
     initLanguage();
     setupEventListeners();
-    await fetchStoreSettings();
-    await fetchCategories();
-    await fetchSections();
-    await fetchProducts();
+    await loadStoreData();
     renderCart();
 });
 
@@ -122,63 +119,74 @@ function applyTranslations() {
 // ====================================================================
 // DATA FETCHING
 // ====================================================================
-async function fetchStoreSettings() {
+// All store data lives in two files the owner edits on GitHub:
+// data/store.json (settings, categories, sections, promo codes) and data/products.json.
+state.allProducts = [];
+state.promoCodes = [];
+
+// Accept "images/x.jpg" or "/images/x.jpg" so paths work under a GitHub Pages sub-folder.
+const assetPath = (p) => String(p || 'images/z-tee.jpg').replace(/^\/+/, '');
+
+async function loadJSON(path) {
+    const res = await fetch(`${path}?v=${Date.now()}`, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`Could not load ${path}`);
+    return res.json();
+}
+
+async function loadStoreData() {
     try {
-        const res = await fetch('/api/settings');
-        const data = await res.json();
-        if (data.success && data.settings) {
-            state.settings = data.settings;
-            applyTranslations();
-        }
+        const [store, products] = await Promise.all([
+            loadJSON('data/store.json'),
+            loadJSON('data/products.json')
+        ]);
+
+        state.settings = store;
+        state.sections = store.sections || [];
+        state.promoCodes = store.promo_codes || [];
+        state.categories = (store.categories || []).map(c => ({ ...c, image_url: assetPath(c.image) }));
+
+        const catBySlug = Object.fromEntries(state.categories.map(c => [c.slug, c]));
+        state.allProducts = products
+            .filter(p => p.visible !== false)
+            .map((p, i) => {
+                const cat = catBySlug[p.category] || {};
+                return {
+                    id: Number(p.id ?? i + 1),
+                    title: p.name_en || '',
+                    title_ar: p.name_ar || '',
+                    description: p.description_en || '',
+                    description_ar: p.description_ar || '',
+                    price: Number(p.price) || 0,
+                    sale_price: p.sale_price === null || p.sale_price === undefined || p.sale_price === '' ? null : Number(p.sale_price),
+                    badge: p.badge_en || '',
+                    badge_ar: p.badge_ar || '',
+                    category_slug: p.category,
+                    category_name_en: cat.name_en,
+                    category_name_ar: cat.name_ar,
+                    section_key: p.section || 'featured',
+                    sizes: Array.isArray(p.sizes) ? p.sizes : [],
+                    image_url: assetPath(p.image)
+                };
+            });
+
+        applyTranslations();
+        renderCategories();
+        renderFilterTabs();
+        fetchProducts();
     } catch (err) {
-        console.warn('Could not load settings:', err);
+        console.error('Error loading store data:', err);
     }
 }
 
-async function fetchCategories() {
-    try {
-        const res = await fetch('/api/categories');
-        const data = await res.json();
-        if (data.success) {
-            state.categories = data.categories;
-            renderCategories();
-            renderFilterTabs();
-        }
-    } catch (err) {
-        console.error('Error fetching categories:', err);
-    }
-}
-
-async function fetchSections() {
-    try {
-        const res = await fetch('/api/settings/sections');
-        const data = await res.json();
-        if (data.success) {
-            state.sections = data.sections;
-        }
-    } catch (err) {
-        console.error('Error fetching sections:', err);
-    }
-}
-
-async function fetchProducts() {
-    try {
-        let url = `/api/products?activeOnly=1`;
-        if (state.activeCategory !== 'all') {
-            url += `&category=${encodeURIComponent(state.activeCategory)}`;
-        }
-        if (state.searchQuery) {
-            url += `&search=${encodeURIComponent(state.searchQuery)}`;
-        }
-        const res = await fetch(url);
-        const data = await res.json();
-        if (data.success) {
-            state.products = data.products;
-            renderSectionsAndProducts();
-        }
-    } catch (err) {
-        console.error('Error fetching products:', err);
-    }
+// Filters the loaded products by the active category and search text.
+function fetchProducts() {
+    const q = state.searchQuery.toLowerCase();
+    state.products = state.allProducts.filter(p => {
+        if (state.activeCategory !== 'all' && p.category_slug !== state.activeCategory) return false;
+        if (!q) return true;
+        return [p.title, p.title_ar, p.description, p.description_ar].some(v => v.toLowerCase().includes(q));
+    });
+    renderSectionsAndProducts();
 }
 
 // ====================================================================
@@ -192,7 +200,7 @@ function renderCategories() {
         const name = state.lang === 'ar' ? (cat.name_ar || cat.name_en) : cat.name_en;
         return `
             <div class="collection-card" data-category="${cat.slug}" role="button" tabindex="0" aria-label="${name}">
-                <div class="collection-img" style="background-image: url('${cat.image_url || '/images/z-tee.jpg'}');"></div>
+                <div class="collection-img" style="background-image: url('${cat.image_url || 'images/z-tee.jpg'}');"></div>
                 <div class="collection-info">
                     <span>${name}</span>
                     <span class="collection-arrow">↗</span>
@@ -330,7 +338,7 @@ function createProductCardHTML(p) {
         <article class="product-card" data-id="${p.id}" tabindex="0" aria-label="${title}">
             ${badge ? `<span class="product-badge">${badge}</span>` : ''}
             <div class="product-image-wrap">
-                <img class="product-image" src="${p.image_url || '/images/z-tee.jpg'}" alt="${title}" loading="lazy">
+                <img class="product-image" src="${p.image_url || 'images/z-tee.jpg'}" alt="${title}" loading="lazy">
             </div>
             <div class="product-details">
                 <span class="product-category-tag">${catName}</span>
@@ -543,92 +551,133 @@ async function applyPromoCode(code) {
 
     const subtotal = state.cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-    try {
-        const res = await fetch('/api/promotions/validate', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ code, cartSubtotal: subtotal })
-        });
-        const data = await res.json();
+    const isAr = state.lang === 'ar';
+    const promo = state.promoCodes.find(p => String(p.code).toUpperCase() === code.toUpperCase());
 
-        if (data.valid) {
-            state.appliedPromo = data;
-            statusEl.className = 'promo-status success';
-            statusEl.textContent = state.lang === 'ar' ? `تم تطبيق الكود "${data.code}" بنجاح!` : `Promo code "${data.code}" applied!`;
-            renderCart();
-        } else {
-            state.appliedPromo = null;
-            statusEl.className = 'promo-status error';
-            statusEl.textContent = data.error || (state.lang === 'ar' ? 'كود غير صحيح.' : 'Invalid code.');
-            renderCart();
-        }
-    } catch {
+    if (!promo) {
+        state.appliedPromo = null;
         statusEl.className = 'promo-status error';
-        statusEl.textContent = state.lang === 'ar' ? 'خطأ في التحقق من الكود.' : 'Error validating code.';
+        statusEl.textContent = isAr ? 'كود غير صحيح أو منتهي.' : 'Invalid or expired code.';
+    } else if (subtotal < Number(promo.min_order || 0)) {
+        state.appliedPromo = null;
+        statusEl.className = 'promo-status error';
+        statusEl.textContent = isAr
+            ? `الكود يحتاج طلب بحد أدنى ${formatMoney(promo.min_order)}`
+            : `Requires minimum order of ${formatMoney(promo.min_order)}`;
+    } else {
+        state.appliedPromo = {
+            code: promo.code,
+            discount_type: promo.type === 'percentage' ? 'percentage' : 'fixed',
+            discount_value: Number(promo.value) || 0
+        };
+        statusEl.className = 'promo-status success';
+        statusEl.textContent = isAr ? `تم تطبيق الكود "${promo.code}" بنجاح!` : `Promo code "${promo.code}" applied!`;
     }
+    renderCart();
 }
 
-async function handleCheckoutSubmit(e) {
-    e.preventDefault();
-    const btn = $('#btn-submit-order');
-    btn.disabled = true;
-    btn.textContent = state.lang === 'ar' ? 'جاري تأكيد الطلب...' : 'PROCESSING ORDER...';
+function cartTotals() {
+    const subtotal = state.cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    let discount = 0;
+    if (state.appliedPromo) {
+        discount = state.appliedPromo.discount_type === 'percentage'
+            ? (subtotal * state.appliedPromo.discount_value) / 100
+            : state.appliedPromo.discount_value;
+        discount = Math.min(discount, subtotal);
+    }
+    return { subtotal, discount, total: subtotal - discount };
+}
 
-    const orderPayload = {
-        customer_name: $('#cust-name').value,
-        email: $('#cust-email').value,
-        phone: $('#cust-phone').value,
-        address: $('#cust-address').value,
-        city: $('#cust-city').value,
-        promo_code: state.appliedPromo ? state.appliedPromo.code : null,
-        language: state.lang,
-        items: state.cart.map(item => ({
-            productId: item.productId,
-            quantity: item.quantity,
-            size: item.size
-        }))
+// Builds the order text that the customer sends to the store on WhatsApp.
+function buildWhatsAppMessage(order, orderNumber) {
+    const isAr = state.lang === 'ar';
+    const { subtotal, discount, total } = cartTotals();
+    const lines = state.cart.map(item => {
+        const title = isAr ? (item.title_ar || item.title) : item.title;
+        return `• ${title} | ${isAr ? 'المقاس' : 'Size'}: ${item.size} | ×${item.quantity} = ${formatMoney(item.price * item.quantity)}`;
+    });
+
+    return [
+        isAr ? `طلب جديد ${orderNumber}` : `New order ${orderNumber}`,
+        '',
+        ...lines,
+        '',
+        `${isAr ? 'الإجمالي الفرعي' : 'Subtotal'}: ${formatMoney(subtotal)}`,
+        ...(discount > 0 ? [`${isAr ? 'الخصم' : 'Discount'} (${state.appliedPromo.code}): -${formatMoney(discount)}`] : []),
+        `${isAr ? 'الإجمالي' : 'Total'}: ${formatMoney(total)}`,
+        '',
+        `${isAr ? 'الاسم' : 'Name'}: ${order.name}`,
+        `${isAr ? 'الموبايل' : 'Phone'}: ${order.phone}`,
+        ...(order.email ? [`${isAr ? 'الإيميل' : 'Email'}: ${order.email}`] : []),
+        `${isAr ? 'المحافظة' : 'City'}: ${order.city}`,
+        `${isAr ? 'العنوان' : 'Address'}: ${order.address}`
+    ].join('\n');
+}
+
+function handleCheckoutSubmit(e) {
+    e.preventDefault();
+    const isAr = state.lang === 'ar';
+
+    // Egyptian numbers like 01012345678 become 201012345678 for wa.me links.
+    let waNumber = String(state.settings.whatsapp_number || '').replace(/\D/g, '');
+    if (waNumber.startsWith('0')) waNumber = '20' + waNumber.slice(1);
+    if (waNumber.length < 10) {
+        alert(isAr
+            ? 'رقم واتساب المتجر لم يتم إعداده بعد. (whatsapp_number في ملف data/store.json)'
+            : 'The store WhatsApp number is not set yet (whatsapp_number in data/store.json).');
+        return;
+    }
+
+    const order = {
+        name: $('#cust-name').value.trim(),
+        email: $('#cust-email').value.trim(),
+        phone: $('#cust-phone').value.trim(),
+        address: $('#cust-address').value.trim(),
+        city: $('#cust-city').value
     };
 
-    try {
-        const res = await fetch('/api/orders', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(orderPayload)
-        });
-        const data = await res.json();
+    const now = new Date();
+    const orderNumber = `Z-${String(now.getFullYear()).slice(2)}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}-${Math.floor(1000 + Math.random() * 9000)}`;
+    const message = buildWhatsAppMessage(order, orderNumber);
+    window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`, '_blank', 'noopener');
 
-        if (data.success) {
-            state.cart = [];
-            state.appliedPromo = null;
-            renderCart();
+    state.cart = [];
+    state.appliedPromo = null;
+    renderCart();
 
-            const t = window.I18N ? window.I18N[state.lang] : {};
-            $('#checkout-modal').innerHTML = `
-                <div style="text-align: center; padding: 20px 0;">
-                    <div style="font-size: 50px; color: var(--red); margin-bottom: 15px;">✓</div>
-                    <h3 style="font-size: 30px; color: var(--text-primary);">${t.order_success_title || 'DROP SECURED.'}</h3>
-                    <p style="color: var(--text-muted); font-size: 13px; margin: 15px 0 25px;">
-                        ${t.order_success_ref || 'Order Ref'}: <strong style="color: var(--red);">${data.orderNumber}</strong>
-                    </p>
-                    <p style="color: var(--text-dim); font-size: 12px; line-height: 1.8;">
-                        ${t.order_success_body || 'We have received your order.'}
-                    </p>
-                    <button id="btn-close-success" class="btn-primary" style="margin-top: 30px; width: 100%; justify-content: center;">
-                        ${t.order_success_btn || 'CONTINUE EXPLORING'}
-                    </button>
-                </div>
-            `;
-            $('#btn-close-success').onclick = closeCartDrawer;
-        } else {
-            alert('Error: ' + (data.error || 'Failed to submit order.'));
-            btn.disabled = false;
-            btn.textContent = state.lang === 'ar' ? 'تأكيد الطلب ↗' : 'CONFIRM ORDER ↗';
-        }
-    } catch {
-        alert('Network error. Please try again.');
-        btn.disabled = false;
-        btn.textContent = state.lang === 'ar' ? 'تأكيد الطلب ↗' : 'CONFIRM ORDER ↗';
-    }
+    const t = window.I18N ? window.I18N[state.lang] : {};
+    const modal = $('#checkout-modal');
+    const formMarkup = modal.innerHTML;
+    modal.innerHTML = `
+        <div style="text-align: center; padding: 20px 0;">
+            <div style="font-size: 50px; color: var(--red); margin-bottom: 15px;">✓</div>
+            <h3 style="font-size: 30px; color: var(--text-primary);">${t.order_success_title || 'ALMOST DONE.'}</h3>
+            <p style="color: var(--text-muted); font-size: 13px; margin: 15px 0 25px;">
+                ${t.order_success_ref || 'Order Ref'}: <strong style="color: var(--red);">${orderNumber}</strong>
+            </p>
+            <p style="color: var(--text-dim); font-size: 12px; line-height: 1.8;">
+                ${t.order_success_body || ''}
+            </p>
+            <button id="btn-close-success" class="btn-primary" style="margin-top: 30px; width: 100%; justify-content: center;">
+                ${t.order_success_btn || 'CONTINUE EXPLORING'}
+            </button>
+        </div>
+    `;
+    $('#btn-close-success').onclick = () => {
+        // Put the checkout form back so the next order works without a page reload.
+        modal.innerHTML = formMarkup;
+        $('#checkout-form').reset();
+        bindCheckoutModal();
+        closeCartDrawer();
+    };
+}
+
+function bindCheckoutModal() {
+    $('#close-checkout-modal').addEventListener('click', () => {
+        $('#checkout-modal').classList.remove('active');
+        $('#cart-drawer').classList.add('active');
+    });
+    $('#checkout-form').addEventListener('submit', handleCheckoutSubmit);
 }
 
 // Toast
@@ -694,12 +743,7 @@ function setupEventListeners() {
         $('#checkout-modal').classList.add('active');
     });
 
-    $('#close-checkout-modal').addEventListener('click', () => {
-        $('#checkout-modal').classList.remove('active');
-        $('#cart-drawer').classList.add('active');
-    });
-
-    $('#checkout-form').addEventListener('submit', handleCheckoutSubmit);
+    bindCheckoutModal();
 
     // Escape Key closes modals
     document.addEventListener('keydown', (e) => {

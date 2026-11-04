@@ -295,7 +295,7 @@ nav a:hover::after {
 .hero-bg {
     position: absolute;
     inset: 0;
-    background-image: var(--hero-overlay), url('/images/hero-cinematic.png');
+    background-image: var(--hero-overlay), url('../images/hero-cinematic.png');
     background-size: cover;
     background-position: center right;
     z-index: 1;

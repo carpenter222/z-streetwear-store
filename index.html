@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,800;1,900&family=Cairo:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
@@ -22,8 +22,8 @@
     <!-- HEADER NAVIGATION -->
     <header role="banner">
         <div class="brand-wrapper">
-            <a href="/" aria-label="Z Clothing Brand Home" style="display: flex; align-items: center;">
-                <img src="/images/logo-transparent.png" alt="Z Clothing Brand Logo" class="brand-logo-img">
+            <a href="./" aria-label="Z Clothing Brand Home" style="display: flex; align-items: center;">
+                <img src="images/logo-transparent.png" alt="Z Clothing Brand Logo" class="brand-logo-img">
             </a>
         </div>
 
@@ -43,11 +43,6 @@
             <button id="theme-toggle-btn" class="switch-btn" aria-label="Toggle theme">
                 <span>☀️</span> <span data-i18n="theme_light">LIGHT</span>
             </button>
-
-            <!-- Admin Link -->
-            <a href="/admin" class="admin-link" title="Open Admin Command Center" data-i18n="nav_portal">
-                ⚡ PORTAL
-            </a>
 
             <!-- Bag Button -->
             <button id="bag-btn" aria-label="Open Shopping Bag">
@@ -150,7 +145,7 @@
     <!-- FOOTER -->
     <footer role="contentinfo">
         <div style="display: flex; align-items: center; gap: 14px;">
-            <img src="/images/logo-transparent.png" alt="Z Clothing Brand" style="height: 38px; width: auto;">
+            <img src="images/logo-transparent.png" alt="Z Clothing Brand" style="height: 38px; width: auto;">
         </div>
         <span data-i18n="footer_brand_tag">WEAR YOUR ATTITUDE. ZERO GRAVITY MOVEMENT.</span>
         <small data-i18n="footer_rights">© 2026 Z STREETWEAR CO. ALL RIGHTS RESERVED.</small>
@@ -211,7 +206,7 @@
                 </div>
                 <div class="form-group">
                     <label for="cust-email" data-i18n="checkout_email">Email Address *</label>
-                    <input type="email" id="cust-email" required placeholder="omar@example.com" data-i18n-ph="checkout_email_ph" autocomplete="email">
+                    <input type="email" id="cust-email" placeholder="omar@example.com" data-i18n-ph="checkout_email_ph" autocomplete="email">
                 </div>
                 <div class="form-group">
                     <label for="cust-phone" data-i18n="checkout_phone">Phone Number *</label>
@@ -243,7 +238,7 @@
     <div id="toast" role="status" aria-live="polite"></div>
 
     <!-- Engine Scripts -->
-    <script src="/js/i18n.js"></script>
-    <script src="/js/store.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/store.js"></script>
 </body>
 </html>

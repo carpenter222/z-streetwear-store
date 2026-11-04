@@ -1,0 +1,82 @@
+{
+  "whatsapp_number": "",
+  "announcement_en": "THE FIRST DROP IS LIVE · FREE NATIONWIDE SHIPPING OVER 1,000 EGP · LIMITED STOCK",
+  "announcement_ar": "الإصدار الأول متاح الآن · شحن مجاني لكافة المحافظات للطلبات فوق 1,000 جنيه · كميات محدودة",
+  "ticker_en": "OWN YOUR STYLE ✦ WEAR YOUR ATTITUDE ✦ ZERO GRAVITY AESTHETIC ✦ THIS IS Z ✦",
+  "ticker_ar": "اصنع أسلوبك الخاص ✦ ارتدِ موقفك ✦ جماليات انعدام الجاذبية ✦ هذا هو Z ✦",
+  "categories": [
+    {
+      "slug": "tees",
+      "name_en": "TEES",
+      "name_ar": "تيشيرتات",
+      "image": "images/z-tee.jpg"
+    },
+    {
+      "slug": "jackets",
+      "name_en": "JACKETS",
+      "name_ar": "جواكت",
+      "image": "images/z-jacket.jpg"
+    },
+    {
+      "slug": "pants",
+      "name_en": "PANTS",
+      "name_ar": "بناطيل",
+      "image": "images/z-pants.jpg"
+    },
+    {
+      "slug": "caps",
+      "name_en": "CAPS",
+      "name_ar": "كابات",
+      "image": "images/z-cap-card.png"
+    },
+    {
+      "slug": "footwear",
+      "name_en": "FOOTWEAR",
+      "name_ar": "سلايدز",
+      "image": "images/z-slides-card.png"
+    },
+    {
+      "slug": "accessories",
+      "name_en": "BELTS",
+      "name_ar": "أحزمة",
+      "image": "images/z-belt-card.png"
+    }
+  ],
+  "sections": [
+    {
+      "key": "featured",
+      "name_en": "FEATURED DROP",
+      "name_ar": "الإصدار المميز",
+      "subtitle_en": "HEAVYWEIGHT FABRIC · SIGNATURE CUT",
+      "subtitle_ar": "خامات ثقيلة فاخرة · قصّة مميزة"
+    },
+    {
+      "key": "new_arrivals",
+      "name_en": "NEW ARRIVALS 2026",
+      "name_ar": "وصل حديثاً 2026",
+      "subtitle_en": "FRESH OFF THE PRODUCTION LINE",
+      "subtitle_ar": "أحدث القطع مباشرة من خط الإنتاج"
+    },
+    {
+      "key": "essentials",
+      "name_en": "CORE ACCESSORIES",
+      "name_ar": "إكسسوارات أساسية",
+      "subtitle_en": "EVERYDAY SIGNATURE HARDWARE",
+      "subtitle_ar": "تفاصيل وإكسسوارات يومية متقنة"
+    }
+  ],
+  "promo_codes": [
+    {
+      "code": "ZDROP10",
+      "type": "percentage",
+      "value": 10,
+      "min_order": 500
+    },
+    {
+      "code": "FIRSTDROP",
+      "type": "fixed",
+      "value": 100,
+      "min_order": 800
+    }
+  ]
+}
