@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>لوحة إدارة متجر Z</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+    <!-- ============ LOGIN ============ -->
+    <main id="login-screen" class="login-wrap" hidden>
+        <div class="login-card">
+            <img src="../images/logo-transparent.png" alt="Z" class="login-logo">
+            <h1>لوحة إدارة المتجر</h1>
+            <p class="muted">ادخل بيانات GitHub مرة واحدة بس، والمتصفح هيفتكرها.</p>
+
+            <form id="login-form">
+                <div class="row-2">
+                    <label>اسم الحساب على GitHub
+                        <input id="login-owner" required autocomplete="off" dir="ltr" placeholder="username">
+                    </label>
+                    <label>اسم الـ repository
+                        <input id="login-repo" required autocomplete="off" dir="ltr" placeholder="z-streetwear-store">
+                    </label>
+                </div>
+                <label>مفتاح الدخول (Token)
+                    <input id="login-token" type="password" required autocomplete="off" dir="ltr" placeholder="github_pat_...">
+                </label>
+                <button type="submit" class="btn btn-primary btn-block" id="login-btn">دخول</button>
+                <p class="error" id="login-error" role="alert"></p>
+            </form>
+
+            <details class="help">
+                <summary>إزاي أعمل مفتاح الدخول؟</summary>
+                <ol>
+                    <li>افتح <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">صفحة عمل مفتاح جديد على GitHub</a>.</li>
+                    <li><b>Token name:</b> اكتب أي اسم، مثلاً <code>Z admin</code>.</li>
+                    <li><b>Expiration:</b> اختار أطول مدة متاحة.</li>
+                    <li><b>Repository access:</b> اختار <b>Only select repositories</b>، واختار repository المتجر بس.</li>
+                    <li><b>Permissions</b> ← <b>Repository permissions</b> ← <b>Contents</b>: اختار <b>Read and write</b>.</li>
+                    <li>دوس <b>Generate token</b>، وانسخ المفتاح وحطه هنا.</li>
+                </ol>
+                <p class="muted">المفتاح ده زي كلمة السر، ما تبعتوش لحد. هو بيقدر يعدّل في المتجر ده بس.</p>
+            </details>
+        </div>
+    </main>
+
+    <!-- ============ APP ============ -->
+    <div id="app" hidden>
+        <header class="topbar">
+            <div class="brand">
+                <img src="../images/logo-transparent.png" alt="Z">
+                <span>لوحة الإدارة</span>
+            </div>
+            <nav class="tabs" role="tablist">
+                <button class="tab active" data-tab="products" role="tab">المنتجات</button>
+                <button class="tab" data-tab="store" role="tab">إعدادات المتجر</button>
+            </nav>
+            <div class="top-actions">
+                <a href="../" target="_blank" rel="noopener" class="btn btn-ghost">فتح الموقع ↗</a>
+                <button class="btn btn-ghost" id="logout-btn">خروج</button>
+            </div>
+        </header>
+
+        <!-- Unsaved changes bar -->
+        <div class="publish-bar" id="publish-bar" hidden>
+            <span>عندك تعديلات لسه ما اتنشرتش على الموقع.</span>
+            <div>
+                <button class="btn btn-ghost" id="discard-btn">إلغاء التعديلات</button>
+                <button class="btn btn-primary" id="publish-btn">نشر على الموقع</button>
+            </div>
+        </div>
+
+        <!-- PRODUCTS TAB -->
+        <section class="panel" id="tab-products">
+            <div class="panel-head">
+                <div>
+                    <h2>المنتجات <span class="count" id="product-count"></span></h2>
+                    <p class="muted">المنتجات بتظهر في الموقع بنفس الترتيب ده. استخدم ▲▼ عشان ترتّبها.</p>
+                </div>
+                <button class="btn btn-primary" id="add-product-btn">+ منتج جديد</button>
+            </div>
+            <input type="search" id="product-search" class="search" placeholder="دوّر على منتج...">
+            <div id="product-list" class="product-list"></div>
+        </section>
+
+        <!-- STORE TAB -->
+        <section class="panel" id="tab-store" hidden>
+            <div class="panel-head">
+                <h2>إعدادات المتجر</h2>
+            </div>
+
+            <div class="card">
+                <h3>واتساب الطلبات</h3>
+                <label>رقم واتساب المتجر (الطلبات بتوصل عليه)
+                    <input id="set-whatsapp" dir="ltr" inputmode="tel" placeholder="01012345678">
+                </label>
+            </div>
+
+            <div class="card">
+                <h3>شريط الإعلان (أعلى الموقع)</h3>
+                <label>بالعربي <input id="set-ann-ar"></label>
+                <label>بالإنجليزي <input id="set-ann-en" dir="ltr"></label>
+            </div>
+
+            <div class="card">
+                <h3>الشريط المتحرك</h3>
+                <label>بالعربي <input id="set-ticker-ar"></label>
+                <label>بالإنجليزي <input id="set-ticker-en" dir="ltr"></label>
+            </div>
+
+            <div class="card">
+                <div class="card-head">
+                    <h3>أكواد الخصم</h3>
+                    <button class="btn btn-ghost" id="add-promo-btn">+ كود جديد</button>
+                </div>
+                <p class="muted">الأكواد دي مكتوبة في ملف عام، فما تحطش أكواد سرية.</p>
+                <div id="promo-list"></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ============ PRODUCT FORM ============ -->
+    <dialog id="product-dialog">
+        <form id="product-form" method="dialog">
+            <div class="dialog-head">
+                <h2 id="product-dialog-title">منتج جديد</h2>
+                <button type="button" class="icon-btn" id="close-dialog" aria-label="إغلاق">×</button>
+            </div>
+
+            <div class="image-picker">
+                <img id="pf-preview" alt="" hidden>
+                <div>
+                    <label class="btn btn-ghost file-btn">
+                        <span id="pf-image-label">اختار صورة</span>
+                        <input type="file" id="pf-image-file" accept="image/*" hidden>
+                    </label>
+                    <p class="muted small" id="pf-image-status"></p>
+                </div>
+            </div>
+
+            <div class="row-2">
+                <label>الاسم بالعربي * <input id="pf-name-ar" required></label>
+                <label>الاسم بالإنجليزي * <input id="pf-name-en" required dir="ltr"></label>
+            </div>
+            <div class="row-2">
+                <label>الوصف بالعربي <textarea id="pf-desc-ar" rows="3"></textarea></label>
+                <label>الوصف بالإنجليزي <textarea id="pf-desc-en" rows="3" dir="ltr"></textarea></label>
+            </div>
+            <div class="row-2">
+                <label>السعر (جنيه) * <input id="pf-price" type="number" min="0" step="1" required dir="ltr"></label>
+                <label>سعر بعد الخصم (اختياري) <input id="pf-sale" type="number" min="0" step="1" dir="ltr" placeholder="سيبه فاضي لو مفيش خصم"></label>
+            </div>
+            <div class="row-2">
+                <label>الكاتيجوري <select id="pf-category"></select></label>
+                <label>القسم في الصفحة <select id="pf-section"></select></label>
+            </div>
+            <label>المقاسات (افصل بينهم بفاصلة)
+                <input id="pf-sizes" dir="ltr" placeholder="S, M, L, XL">
+            </label>
+            <div class="row-2">
+                <label>الشارة بالعربي (اختياري) <input id="pf-badge-ar" placeholder="إصدار جديد"></label>
+                <label>الشارة بالإنجليزي (اختياري) <input id="pf-badge-en" dir="ltr" placeholder="NEW DROP"></label>
+            </div>
+            <label class="check">
+                <input type="checkbox" id="pf-visible" checked> يظهر في الموقع
+            </label>
+
+            <p class="error" id="pf-error" role="alert"></p>
+            <div class="dialog-actions">
+                <button type="button" class="btn btn-ghost" id="cancel-product">إلغاء</button>
+                <button type="submit" class="btn btn-primary" id="save-product">حفظ</button>
+            </div>
+        </form>
+    </dialog>
+
+    <div id="toast" role="status" aria-live="polite"></div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
