@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Z — Streetwear Clothing Brand</title>
+    <meta name="description" content="Z is for the ones who make their own mark. Premium dark streetwear essentials.">
+    <!-- Google Fonts: Barlow Condensed & Cairo (Arabic) & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,800;1,900&family=Cairo:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <!-- TOP ANNOUNCEMENT BAR (Live Controlled from Admin) -->
+    <aside class="announcement-bar" id="announcement-bar" role="region" aria-label="Announcement">
+        <span id="announcement-text">THE FIRST DROP IS LIVE · FREE NATIONWIDE SHIPPING OVER 1,000 EGP</span>
+    </aside>
+
+    <!-- HEADER NAVIGATION -->
+    <header role="banner">
+        <div class="brand-wrapper">
+            <a href="/" aria-label="Z Clothing Brand Home" style="display: flex; align-items: center;">
+                <img src="/images/logo-transparent.png" alt="Z Clothing Brand Logo" class="brand-logo-img">
+            </a>
+        </div>
+
+        <nav aria-label="Main Navigation">
+            <a href="#shop" data-i18n="nav_shop">SHOP ALL</a>
+            <a href="#collections" data-i18n="nav_collections">COLLECTIONS</a>
+            <a href="#about" data-i18n="nav_manifesto">THE MANIFESTO</a>
+        </nav>
+
+        <div class="header-controls">
+            <!-- Language Toggle (EN / AR) -->
+            <button id="lang-toggle-btn" class="switch-btn" aria-label="Toggle language">
+                🌐 عربي
+            </button>
+
+            <!-- Theme Toggle (Dark / Light) -->
+            <button id="theme-toggle-btn" class="switch-btn" aria-label="Toggle theme">
+                <span>☀️</span> <span data-i18n="theme_light">LIGHT</span>
+            </button>
+
+            <!-- Admin Link -->
+            <a href="/admin" class="admin-link" title="Open Admin Command Center" data-i18n="nav_portal">
+                ⚡ PORTAL
+            </a>
+
+            <!-- Bag Button -->
+            <button id="bag-btn" aria-label="Open Shopping Bag">
+                <span data-i18n="bag_title">BAG</span> <span id="bag-count">0</span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content" role="main">
+        <!-- HERO SECTION (4K CINEMATIC 3D NEON ARTWORK) -->
+        <section class="hero" aria-label="Hero Showcase">
+            <div class="hero-bg" aria-hidden="true"></div>
+
+            <!-- Anti-gravity floating UI accents -->
+            <div class="floating-element float-1" data-i18n="floating_badge_1">DROP // 001 · ARCHIVE EDITION</div>
+            <div class="floating-element float-2" data-i18n="floating_badge_2">500 GSM · REINFORCED HEAVY COTTON</div>
+
+            <div class="hero-copy">
+                <span class="eyebrow" data-i18n="hero_eyebrow">Z / STREETWEAR ARCHIVE 2026</span>
+                <h1>
+                    <span data-i18n="hero_title_1">MORE THAN</span><br>
+                    <span data-i18n="hero_title_2">JUST</span> <em data-i18n="hero_title_em">CLOTHES.</em>
+                </h1>
+                <p class="hero-description" data-i18n="hero_desc">
+                    Engineered silhouette. Raw attitude. Relentless quality. Everyday high-density essentials infused with unmistakable dark energy.
+                </p>
+                <a href="#shop" class="btn-primary" data-i18n="hero_btn">EXPLORE THE DROP ↗</a>
+            </div>
+        </section>
+
+        <!-- LIVE STREAMING TICKER -->
+        <div class="ticker-wrap" aria-hidden="true">
+            <div class="ticker-content" id="ticker-text">
+                OWN YOUR STYLE ✦ WEAR YOUR ATTITUDE ✦ ZERO GRAVITY AESTHETIC ✦ THIS IS Z ✦
+            </div>
+        </div>
+
+        <!-- COLLECTIONS SECTION -->
+        <section id="collections" aria-label="Product Collections">
+            <span class="eyebrow" data-i18n="collections_eyebrow">CURATED SILHOUETTES</span>
+            <h2 data-i18n="collections_title">THE COLLECTIONS<span>.</span></h2>
+            <div class="collections-grid" id="collections-container">
+                <!-- Populated dynamically via store.js -->
+            </div>
+        </section>
+
+        <!-- PRODUCT CATALOG (RENDERED BY SECTION) -->
+        <section id="shop" aria-label="Shop Products">
+            <div class="shop-controls">
+                <div class="filter-tabs" id="filter-tabs">
+                    <!-- Populated dynamically with ALL & Categories -->
+                </div>
+
+                <div class="search-box">
+                    <span class="search-icon" aria-hidden="true">🔍</span>
+                    <input type="search" id="search-input" placeholder="Search current drop..." data-i18n-ph="search_placeholder" aria-label="Search clothing items">
+                </div>
+            </div>
+
+            <!-- Products grouped by Section (Featured Drop, New Arrivals, Core Accessories) -->
+            <div id="sections-product-container">
+                <!-- Rendered dynamically -->
+            </div>
+
+            <p id="no-products" style="display: none; text-align: center; color: var(--text-muted); padding: 60px 0;" data-i18n="no_products">
+                NO PIECES MATCH YOUR SEARCH IN THIS DROP.
+            </p>
+        </section>
+
+        <!-- MANIFESTO -->
+        <section id="about" aria-label="Brand Manifesto">
+            <span class="eyebrow" data-i18n="manifesto_eyebrow">NO RULES. JUST YOU.</span>
+            <h2>
+                <span data-i18n="manifesto_title_1">A LETTER.</span><br>
+                <span style="color: var(--red);" data-i18n="manifesto_title_2">AN ATTITUDE.</span>
+            </h2>
+            <p data-i18n="manifesto_body">
+                Z is for those who carve their own path in the concrete landscape. Sharp proportions, midnight textures, and industrial precision. Designed with zero compromises, worn with infinite presence.
+            </p>
+            <a href="#shop" class="btn-primary" data-i18n="manifesto_btn">FIND YOUR Z ↗</a>
+        </section>
+
+        <!-- PERKS -->
+        <div class="perks-bar" role="region" aria-label="Store Guarantees">
+            <div class="perk-item">
+                <span data-i18n="perk_delivery_title">↗ EXPRESS NATIONWIDE DELIVERY</span>
+                <small data-i18n="perk_delivery_sub">Dispatched from central warehouse within 24h.</small>
+            </div>
+            <div class="perk-item">
+                <span data-i18n="perk_quality_title">◇ UNCOMPROMISING QUALITY</span>
+                <small data-i18n="perk_quality_sub">High GSM heavyweight loopback & precision hardware.</small>
+            </div>
+            <div class="perk-item">
+                <span data-i18n="perk_returns_title">↺ HASSLE-FREE RETURNS</span>
+                <small data-i18n="perk_returns_sub">14-day exchange guarantee on unworn drops.</small>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer role="contentinfo">
+        <div style="display: flex; align-items: center; gap: 14px;">
+            <img src="/images/logo-transparent.png" alt="Z Clothing Brand" style="height: 38px; width: auto;">
+        </div>
+        <span data-i18n="footer_brand_tag">WEAR YOUR ATTITUDE. ZERO GRAVITY MOVEMENT.</span>
+        <small data-i18n="footer_rights">© 2026 Z STREETWEAR CO. ALL RIGHTS RESERVED.</small>
+    </footer>
+
+    <!-- BACKGROUND OVERLAY -->
+    <div id="overlay" aria-hidden="true"></div>
+
+    <!-- SHOPPING BAG SLIDE-OUT DRAWER -->
+    <aside id="cart-drawer" role="dialog" aria-modal="true" aria-label="Shopping Bag">
+        <div class="cart-header">
+            <h2><span data-i18n="cart_title">YOUR BAG</span><span>.</span></h2>
+            <button class="close-btn" id="close-cart-btn" aria-label="Close Bag">×</button>
+        </div>
+
+        <div class="cart-body" id="cart-items">
+            <!-- Dynamically populated cart items -->
+        </div>
+
+        <div class="cart-footer">
+            <div class="promo-form">
+                <input type="text" class="promo-input" id="promo-input" placeholder="HAVE A PROMO CODE?" data-i18n-ph="cart_promo_placeholder" aria-label="Promo Code">
+                <button type="button" class="btn-promo-apply" id="btn-apply-promo" data-i18n="cart_apply">APPLY</button>
+            </div>
+            <span class="promo-status" id="promo-status" role="status"></span>
+
+            <div class="totals-breakdown">
+                <div class="totals-row">
+                    <span data-i18n="cart_subtotal">SUBTOTAL</span>
+                    <span id="cart-subtotal">EGP 0</span>
+                </div>
+                <div class="totals-row" id="cart-discount-row" style="display: none; color: #10b981;">
+                    <span data-i18n="cart_discount">DISCOUNT</span>
+                    <span id="cart-discount">-EGP 0</span>
+                </div>
+                <div class="totals-row grand-total">
+                    <span data-i18n="cart_total">TOTAL</span>
+                    <span id="cart-grand-total">EGP 0</span>
+                </div>
+            </div>
+
+            <button type="button" class="btn-checkout" id="btn-checkout" data-i18n="cart_checkout">PROCEED TO CHECKOUT ↗</button>
+        </div>
+    </aside>
+
+    <!-- CHECKOUT MODAL -->
+    <div id="checkout-modal" role="dialog" aria-modal="true" aria-label="Checkout">
+        <div class="checkout-header">
+            <h3><span data-i18n="checkout_modal_title">CHECKOUT & SHIPPING</span><span>.</span></h3>
+            <button class="close-btn" id="close-checkout-modal" aria-label="Back to Cart">×</button>
+        </div>
+
+        <form id="checkout-form">
+            <div class="form-grid">
+                <div class="form-group full">
+                    <label for="cust-name" data-i18n="checkout_name">Full Name *</label>
+                    <input type="text" id="cust-name" required placeholder="e.g. Omar Hassan" data-i18n-ph="checkout_name_ph" autocomplete="name">
+                </div>
+                <div class="form-group">
+                    <label for="cust-email" data-i18n="checkout_email">Email Address *</label>
+                    <input type="email" id="cust-email" required placeholder="omar@example.com" data-i18n-ph="checkout_email_ph" autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label for="cust-phone" data-i18n="checkout_phone">Phone Number *</label>
+                    <input type="tel" id="cust-phone" required placeholder="01XXXXXXXXX" data-i18n-ph="checkout_phone_ph" autocomplete="tel">
+                </div>
+                <div class="form-group">
+                    <label for="cust-city" data-i18n="checkout_city">City / Governorate *</label>
+                    <select id="cust-city" required autocomplete="address-level1">
+                        <option value="" data-i18n="checkout_city_select">Select city...</option>
+                        <option value="Cairo">Cairo (القاهرة)</option>
+                        <option value="Giza">Giza (الجيزة)</option>
+                        <option value="Alexandria">Alexandria (الإسكندرية)</option>
+                        <option value="Mansoura">Mansoura (المنصورة)</option>
+                        <option value="Tanta">Tanta (طنطا)</option>
+                        <option value="Other">Other Governorate (محافظة أخرى)</option>
+                    </select>
+                </div>
+                <div class="form-group full">
+                    <label for="cust-address" data-i18n="checkout_address">Street Address / Apartment *</label>
+                    <textarea id="cust-address" rows="2" required placeholder="Building no, street name, district" data-i18n-ph="checkout_address_ph" autocomplete="street-address"></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-place-order" id="btn-submit-order" data-i18n="checkout_submit">CONFIRM ORDER ↗</button>
+        </form>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" role="status" aria-live="polite"></div>
+
+    <!-- Engine Scripts -->
+    <script src="/js/i18n.js"></script>
+    <script src="/js/store.js"></script>
+</body>
+</html>
