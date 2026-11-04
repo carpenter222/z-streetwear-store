@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>إعداد لوحة الإدارة — متجر Z</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <main class="login-wrap">
+        <div class="login-card setup-card">
+            <img src="../images/logo-transparent.png" alt="Z" class="login-logo">
+            <h1>إعداد لوحة الإدارة</h1>
+            <p class="muted">الصفحة دي لصاحب حساب GitHub بس، وبتتعمل مرة واحدة. بعدها صاحب المحل يدخل اللوحة باسم مستخدم وكلمة سر بس.</p>
+
+            <form id="setup-form">
+                <h3 class="step">١. حساب GitHub</h3>
+                <div class="row-2">
+                    <label>اسم الحساب على GitHub
+                        <input id="s-owner" required autocomplete="off" dir="ltr" placeholder="username">
+                    </label>
+                    <label>اسم الـ repository
+                        <input id="s-repo" required autocomplete="off" dir="ltr" placeholder="z-streetwear-store">
+                    </label>
+                </div>
+                <label>مفتاح GitHub (Token)
+                    <input id="s-token" type="password" required autocomplete="off" dir="ltr" placeholder="github_pat_...">
+                </label>
+                <details class="help">
+                    <summary>إزاي أعمل المفتاح؟</summary>
+                    <ol>
+                        <li>افتح <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">صفحة عمل مفتاح جديد على GitHub</a>.</li>
+                        <li><b>Token name:</b> اكتب أي اسم، مثلاً <code>Z admin</code>.</li>
+                        <li><b>Expiration:</b> اختار أطول مدة متاحة.</li>
+                        <li><b>Repository access:</b> اختار <b>Only select repositories</b>، واختار repository المتجر بس.</li>
+                        <li><b>Permissions</b> ← <b>Repository permissions</b> ← <b>Contents</b>: اختار <b>Read and write</b>.</li>
+                        <li>دوس <b>Generate token</b>، وانسخ المفتاح وحطه هنا.</li>
+                    </ol>
+                </details>
+
+                <h3 class="step">٢. بيانات دخول صاحب المحل</h3>
+                <label>اسم المستخدم
+                    <input id="s-user" required autocomplete="off" dir="ltr" placeholder="z-admin">
+                </label>
+                <div class="row-2">
+                    <label>كلمة السر (١٠ حروف أو أكتر)
+                        <input id="s-pass" type="password" required minlength="10" autocomplete="new-password" dir="ltr">
+                    </label>
+                    <label>اكتب كلمة السر تاني
+                        <input id="s-pass2" type="password" required autocomplete="new-password" dir="ltr">
+                    </label>
+                </div>
+                <p class="muted small">استخدم كلمة سر طويلة ومش سهلة تتخمّن، زي ٣ أو ٤ كلمات ورا بعض مع أرقام. كلمة السر دي هي اللي بتحمي مفتاح GitHub.</p>
+
+                <button type="submit" class="btn btn-primary btn-block" id="setup-btn">حفظ الإعداد</button>
+                <p class="error" id="setup-error" role="alert"></p>
+            </form>
+
+            <div id="setup-done" hidden>
+                <h3 class="ok">✓ الإعداد اتحفظ</h3>
+                <p>بعد دقيقة أو اتنين، صاحب المحل يقدر يفتح لوحة الإدارة ويدخل باسم المستخدم وكلمة السر:</p>
+                <p><a id="admin-link" href="./" dir="ltr"></a></p>
+                <p class="muted small">لو عايز تغيّر كلمة السر، أو مفتاح GitHub انتهت صلاحيته، افتح الصفحة دي تاني واعمل الإعداد من جديد.</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="common.js"></script>
+    <script src="setup.js"></script>
+</body>
+</html>

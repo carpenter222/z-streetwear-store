@@ -324,3 +324,9 @@ dialog::backdrop { background: rgba(0, 0, 0, 0.7); }
     .row-actions { grid-column: 1 / -1; justify-content: flex-start; }
     .promo-row { grid-template-columns: 1fr 1fr; }
 }
+
+/* ---------- Setup page ---------- */
+.setup-card { max-width: 620px; }
+.step { margin: 22px 0 12px; color: var(--red); }
+.ok { color: var(--green); margin-top: 8px; }
+#setup-done a { word-break: break-all; }

@@ -17,36 +17,18 @@
         <div class="login-card">
             <img src="../images/logo-transparent.png" alt="Z" class="login-logo">
             <h1>لوحة إدارة المتجر</h1>
-            <p class="muted">ادخل بيانات GitHub مرة واحدة بس، والمتصفح هيفتكرها.</p>
+            <p class="muted">ادخل اسم المستخدم وكلمة السر.</p>
 
             <form id="login-form">
-                <div class="row-2">
-                    <label>اسم الحساب على GitHub
-                        <input id="login-owner" required autocomplete="off" dir="ltr" placeholder="username">
-                    </label>
-                    <label>اسم الـ repository
-                        <input id="login-repo" required autocomplete="off" dir="ltr" placeholder="z-streetwear-store">
-                    </label>
-                </div>
-                <label>مفتاح الدخول (Token)
-                    <input id="login-token" type="password" required autocomplete="off" dir="ltr" placeholder="github_pat_...">
+                <label>اسم المستخدم
+                    <input id="login-user" required autocomplete="username" dir="ltr">
+                </label>
+                <label>كلمة السر
+                    <input id="login-pass" type="password" required autocomplete="current-password" dir="ltr">
                 </label>
                 <button type="submit" class="btn btn-primary btn-block" id="login-btn">دخول</button>
                 <p class="error" id="login-error" role="alert"></p>
             </form>
-
-            <details class="help">
-                <summary>إزاي أعمل مفتاح الدخول؟</summary>
-                <ol>
-                    <li>افتح <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">صفحة عمل مفتاح جديد على GitHub</a>.</li>
-                    <li><b>Token name:</b> اكتب أي اسم، مثلاً <code>Z admin</code>.</li>
-                    <li><b>Expiration:</b> اختار أطول مدة متاحة.</li>
-                    <li><b>Repository access:</b> اختار <b>Only select repositories</b>، واختار repository المتجر بس.</li>
-                    <li><b>Permissions</b> ← <b>Repository permissions</b> ← <b>Contents</b>: اختار <b>Read and write</b>.</li>
-                    <li>دوس <b>Generate token</b>، وانسخ المفتاح وحطه هنا.</li>
-                </ol>
-                <p class="muted">المفتاح ده زي كلمة السر، ما تبعتوش لحد. هو بيقدر يعدّل في المتجر ده بس.</p>
-            </details>
         </div>
     </main>
 
@@ -181,6 +163,7 @@
 
     <div id="toast" role="status" aria-live="polite"></div>
 
+    <script src="common.js"></script>
     <script src="admin.js"></script>
 </body>
 </html>

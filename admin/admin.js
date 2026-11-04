@@ -34,48 +34,8 @@ function toast(msg, isError = false) {
     toast.timer = setTimeout(() => t.classList.remove('show'), isError ? 6000 : 3000);
 }
 
-function bytesToBase64(bytes) {
-    let bin = '';
-    for (let i = 0; i < bytes.length; i += 0x8000) {
-        bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
-    }
-    return btoa(bin);
-}
-const textToBase64 = (text) => bytesToBase64(new TextEncoder().encode(text));
-const base64ToText = (b64) => {
-    const bin = atob(b64.replace(/\s/g, ''));
-    return new TextDecoder().decode(Uint8Array.from(bin, c => c.charCodeAt(0)));
-};
-
-// ---------- GitHub API ----------
-async function gh(path, options = {}) {
-    const { owner, repo, token } = app.creds;
-    const res = await fetch(`https://api.github.com/repos/${owner}/${repo}${path}`, {
-        ...options,
-        headers: {
-            Accept: 'application/vnd.github+json',
-            Authorization: `Bearer ${token}`,
-            'X-GitHub-Api-Version': '2022-11-28',
-            ...(options.body ? { 'Content-Type': 'application/json' } : {})
-        }
-    });
-    const data = await res.json().catch(() => ({}));
-    if (!res.ok) {
-        const err = new Error(data.message || `GitHub error ${res.status}`);
-        err.status = res.status;
-        throw err;
-    }
-    return data;
-}
-
-function friendlyError(err) {
-    if (err.status === 401) return 'مفتاح الدخول غلط أو انتهت صلاحيته. اعمل مفتاح جديد.';
-    if (err.status === 403) return 'المفتاح مش معاه صلاحية تعديل. اتأكد إن Contents = Read and write.';
-    if (err.status === 404) return 'مش لاقي الـ repository أو الملف. اتأكد من اسم الحساب واسم الـ repository، وإن المفتاح مسموح له بيه.';
-    if (err.status === 409 || err.status === 422) return 'الملف اتغيّر من مكان تاني. اعمل تحديث للصفحة (Refresh) وجرّب تاني.';
-    if (err instanceof TypeError) return 'مفيش إنترنت أو GitHub مش بيرد. جرّب تاني.';
-    return `حصلت مشكلة: ${err.message}`;
-}
+// GitHub calls go through ghRequest() in common.js.
+const gh = (path, options) => ghRequest(app.creds, path, options);
 
 async function readJSONFile(path) {
     const file = await gh(`/contents/${path}?ref=${encodeURIComponent(app.creds.branch)}`);
@@ -92,23 +52,9 @@ async function writeFile(path, base64Content, message) {
 }
 
 // ---------- login ----------
-function guessRepoFromURL() {
-    // On GitHub Pages the address is https://OWNER.github.io/REPO/admin/
-    const host = location.hostname;
-    if (!host.endsWith('.github.io')) return {};
-    const owner = host.replace('.github.io', '');
-    const first = location.pathname.split('/').filter(Boolean)[0];
-    const repo = first && first !== 'admin' ? first : host;
-    return { owner, repo };
-}
-
 async function connect(creds) {
-    app.creds = { branch: 'main', ...creds };
-    const repoInfo = await gh('');
-    app.creds.branch = repoInfo.default_branch || 'main';
-    if (repoInfo.permissions && !repoInfo.permissions.push) {
-        const err = new Error('no push'); err.status = 403; throw err;
-    }
+    app.creds = { ...creds };
+    app.creds.branch = await checkRepoAccess(app.creds);
     const [products, store] = await Promise.all([readJSONFile(PRODUCTS_PATH), readJSONFile(STORE_PATH)]);
     app.products = products;
     app.store = store;
@@ -119,10 +65,6 @@ async function connect(creds) {
 function showLogin(errorMsg = '') {
     $('#app').hidden = true;
     $('#login-screen').hidden = false;
-    const saved = JSON.parse(localStorage.getItem(CREDS_KEY) || 'null') || {};
-    const guess = guessRepoFromURL();
-    $('#login-owner').value = saved.owner || guess.owner || '';
-    $('#login-repo').value = saved.repo || guess.repo || '';
     $('#login-error').textContent = errorMsg;
 }
 
@@ -140,18 +82,25 @@ $('#login-form').addEventListener('submit', async (e) => {
     btn.disabled = true;
     btn.textContent = 'جاري الدخول...';
     $('#login-error').textContent = '';
-    const creds = {
-        owner: $('#login-owner').value.trim(),
-        repo: $('#login-repo').value.trim(),
-        token: $('#login-token').value.trim()
-    };
     try {
+        const access = await loadAccessFile();
+        if (!access) {
+            $('#login-error').textContent = 'اللوحة لسه ما اتجهزتش. لازم صاحب حساب GitHub يفتح صفحة الإعداد الأول.';
+            return;
+        }
+        const creds = await unlockAccess(access, $('#login-user').value, $('#login-pass').value);
+        if (!creds) {
+            $('#login-error').textContent = 'اسم المستخدم أو كلمة السر غلط.';
+            return;
+        }
         await connect(creds);
         localStorage.setItem(CREDS_KEY, JSON.stringify(creds));
-        $('#login-token').value = '';
+        $('#login-pass').value = '';
         showApp();
     } catch (err) {
-        $('#login-error').textContent = friendlyError(err);
+        $('#login-error').textContent = err.status === 401 || err.status === 403
+            ? 'الدخول صح، بس مفتاح GitHub انتهت صلاحيته أو اتلغى. كلّم صاحب حساب GitHub يعمل الإعداد من جديد.'
+            : friendlyError(err);
     } finally {
         btn.disabled = false;
         btn.textContent = 'دخول';
@@ -506,10 +455,16 @@ $('#add-promo-btn').addEventListener('click', () => {
 (async function start() {
     const saved = JSON.parse(localStorage.getItem(CREDS_KEY) || 'null');
     if (!saved || !saved.token) return showLogin();
+    // Saved from an earlier login on this device.
     try {
         await connect(saved);
         showApp();
     } catch (err) {
+        // The saved key stopped working (e.g. setup was redone with a new key): just ask to log in again.
+        if (err.status === 401 || err.status === 403 || err.status === 404) {
+            localStorage.removeItem(CREDS_KEY);
+            return showLogin();
+        }
         showLogin(friendlyError(err));
     }
 })();
