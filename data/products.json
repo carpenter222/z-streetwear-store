@@ -18,7 +18,7 @@
       "XXL"
     ],
     "image": "images/z-jacket.jpg",
-    "visible": true
+    "visible": false
   },
   {
     "id": 4,
@@ -36,7 +36,7 @@
       "ONE SIZE"
     ],
     "image": "images/z-cap-card.png",
-    "visible": true
+    "visible": false
   },
   {
     "id": 7,
@@ -54,6 +54,6 @@
       "ONE SIZE"
     ],
     "image": "images/z-trucker-cap-card.png",
-    "visible": true
+    "visible": false
   }
 ]
