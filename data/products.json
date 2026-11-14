@@ -1,20 +1,23 @@
 [
   {
-    "id": 6,
-    "name_en": "Z INDUSTRIAL WEBBED BELT",
-    "name_ar": "حزام Z تكتيكي كويك ريليس",
-    "description_en": "Ballistic military nylon webbing belt with quick-release zinc alloy buckle featuring laser-etched crimson Z branding.",
-    "description_ar": "حزام نايلون عسكري متين ومقاوم للتمزق مع إبزيم معدني سريع الفك محفور عليه شعار Z بالليزر.",
-    "price": 750,
-    "sale_price": null,
-    "badge_en": "RESTOCKED",
-    "badge_ar": "تم التجديد",
-    "category": "accessories",
+    "id": 2,
+    "name_en": "Z TACTICAL BOMBER JACKET",
+    "name_ar": "جاكيت Z بومبر تكتيكي سحاب",
+    "description_en": "Engineered matte-black shell jacket with heavy-gauge industrial zipper, thermal ribbed storm cuffs, and embroidered crimson Z chest signature.",
+    "description_ar": "جاكيت تكتيكي أسود مطفي مع سحاب معدني صناعي قوي، وياقة مرتفعة، وأساور مضلعة عازلة مع تطريز أحمر بارز.",
+    "price": 1850,
+    "sale_price": 1650,
+    "badge_en": "BEST SELLER",
+    "badge_ar": "الأكثر طلباً",
+    "category": "jackets",
     "section": "featured",
     "sizes": [
-      "ADJUSTABLE (125CM)"
+      "M",
+      "L",
+      "XL",
+      "XXL"
     ],
-    "image": "images/z-belt-card.png",
+    "image": "images/z-jacket.jpg",
     "visible": true
   },
   {
@@ -36,6 +39,42 @@
     "visible": true
   },
   {
+    "id": 7,
+    "name_en": "Z AIR-MESH TRUCKER CAP",
+    "name_ar": "كاب Z تراكر شبك مسامي",
+    "description_en": "Breathable rear mesh panels, pre-curved brim, and high-density puff embroidered crimson Z on front crown.",
+    "description_ar": "كاب تراكر بشبكة تهوية خلفية، ونقاب مقوس مع تطريز بارز لشعار Z القرمزي على الواجهة.",
+    "price": 500,
+    "sale_price": null,
+    "badge_en": "HOT DROP",
+    "badge_ar": "الأكثر رواجاً",
+    "category": "caps",
+    "section": "essentials",
+    "sizes": [
+      "ONE SIZE"
+    ],
+    "image": "images/z-trucker-cap-card.png",
+    "visible": true
+  },
+  {
+    "id": 6,
+    "name_en": "Z INDUSTRIAL WEBBED BELT",
+    "name_ar": "حزام Z تكتيكي كويك ريليس",
+    "description_en": "Ballistic military nylon webbing belt with quick-release zinc alloy buckle featuring laser-etched crimson Z branding.",
+    "description_ar": "حزام نايلون عسكري متين ومقاوم للتمزق مع إبزيم معدني سريع الفك محفور عليه شعار Z بالليزر.",
+    "price": 750,
+    "sale_price": null,
+    "badge_en": "RESTOCKED",
+    "badge_ar": "تم التجديد",
+    "category": "accessories",
+    "section": "featured",
+    "sizes": [
+      "ADJUSTABLE (125CM)"
+    ],
+    "image": "images/z-belt-card.png",
+    "visible": false
+  },
+  {
     "id": 1,
     "name_en": "Z SIGNATURE OVERSIZED TEE",
     "name_ar": "تيشيرت Z أوفر سايز هيفي ويت",
@@ -55,25 +94,7 @@
       "XXL"
     ],
     "image": "images/z-tee.jpg",
-    "visible": true
-  },
-  {
-    "id": 7,
-    "name_en": "Z AIR-MESH TRUCKER CAP",
-    "name_ar": "كاب Z تراكر شبك مسامي",
-    "description_en": "Breathable rear mesh panels, pre-curved brim, and high-density puff embroidered crimson Z on front crown.",
-    "description_ar": "كاب تراكر بشبكة تهوية خلفية، ونقاب مقوس مع تطريز بارز لشعار Z القرمزي على الواجهة.",
-    "price": 500,
-    "sale_price": null,
-    "badge_en": "HOT DROP",
-    "badge_ar": "الأكثر رواجاً",
-    "category": "caps",
-    "section": "essentials",
-    "sizes": [
-      "ONE SIZE"
-    ],
-    "image": "images/z-trucker-cap-card.png",
-    "visible": true
+    "visible": false
   },
   {
     "id": 5,
@@ -96,28 +117,7 @@
       "45"
     ],
     "image": "images/z-slides-card.png",
-    "visible": true
-  },
-  {
-    "id": 2,
-    "name_en": "Z TACTICAL BOMBER JACKET",
-    "name_ar": "جاكيت Z بومبر تكتيكي سحاب",
-    "description_en": "Engineered matte-black shell jacket with heavy-gauge industrial zipper, thermal ribbed storm cuffs, and embroidered crimson Z chest signature.",
-    "description_ar": "جاكيت تكتيكي أسود مطفي مع سحاب معدني صناعي قوي، وياقة مرتفعة، وأساور مضلعة عازلة مع تطريز أحمر بارز.",
-    "price": 1850,
-    "sale_price": 1650,
-    "badge_en": "BEST SELLER",
-    "badge_ar": "الأكثر طلباً",
-    "category": "jackets",
-    "section": "featured",
-    "sizes": [
-      "M",
-      "L",
-      "XL",
-      "XXL"
-    ],
-    "image": "images/z-jacket.jpg",
-    "visible": true
+    "visible": false
   },
   {
     "id": 3,
@@ -139,6 +139,6 @@
       "38"
     ],
     "image": "images/z-pants.jpg",
-    "visible": true
+    "visible": false
   }
 ]
