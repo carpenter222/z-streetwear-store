@@ -1,5 +1,23 @@
 [
   {
+    "id": 2,
+    "name_en": "Black Leather Cap",
+    "name_ar": "كاب رجالي جلد أسود",
+    "description_en": "A men’s cap with a modern, luxurious design, crafted from synthetic leather with an elegant sheen, featuring distinctive embroidery and silver-toned metallic details.",
+    "description_ar": "كاب رجالي بتصميم عصري وفخم، مصنوع من الجلد الصناعي بلمعة أنيقة، مع تطريزات وتفاصيل معدنية فضية مميزة.",
+    "price": 500,
+    "sale_price": null,
+    "badge_en": "",
+    "badge_ar": "",
+    "category": "caps",
+    "section": "essentials",
+    "sizes": [
+      "One size"
+    ],
+    "image": "images/products/p-1794720551356.jpg",
+    "visible": false
+  },
+  {
     "id": 1,
     "name_en": "MEN'S CAMO PUFFER VEST",
     "name_ar": "ڤيست منفوخ مموه للرجال",
