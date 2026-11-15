@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "id": 1,
+    "name_en": "MEN'S CAMO PUFFER VEST",
+    "name_ar": "ڤيست منفوخ مموه للرجال",
+    "description_en": "Men’s Puffer Vest in Camouflage Print (Grey and Black)\nA practical and stylish winter vest, specially designed to provide warmth and flexibility on cold days. It features a functional hooded design with a zipper, a full-length front zipper, and convenient side pockets—also equipped with zippers. Perfect for layering over a hoodie or sweatshirt for a modern, casual look.",
+    "description_ar": "فست رجالي منفوخ بنقشة مموه (رمادي وأسود)\nفست شتوي عملي وأنيق، مصمم خصيصاً ليمنحك الدفء والمرونة في الأيام الباردة. يأتي مع كابيشو عملي ب سحاب، وسحاب أمامي كامل، وجيوب جانبية مريحة وب سحاب. مثالي للتنسيق مع الهودي أو السويت شيرت لإطلالة كاجوال عصرية.",
+    "price": 1700,
+    "sale_price": null,
+    "badge_en": "",
+    "badge_ar": "",
+    "category": "jackets",
+    "section": "featured",
+    "sizes": [
+      "XL"
+    ],
+    "image": "images/products/p-1794719965449.jpeg",
+    "visible": false
+  }
+]
