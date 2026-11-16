@@ -1,5 +1,23 @@
 [
   {
+    "id": 3,
+    "name_en": "Black sweatshirt.",
+    "name_ar": "سويت شيرت بلون الاسود.",
+    "description_en": "Black sweatshirt with a distinctive letter design, soft material, comfortable story, and bracelets and middle with Ri design.",
+    "description_ar": "سويت شيرت أسود بتصميم حروف مميز، خامة ناعمة، قصة مريحة، وأساور ووسط بتصميم Ri.",
+    "price": 700,
+    "sale_price": null,
+    "badge_en": "",
+    "badge_ar": "",
+    "category": "tees",
+    "section": "featured",
+    "sizes": [
+      "L"
+    ],
+    "image": "images/products/p-1794834269562.png",
+    "visible": false
+  },
+  {
     "id": 2,
     "name_en": "Black Leather Cap",
     "name_ar": "كاب رجالي جلد أسود",
