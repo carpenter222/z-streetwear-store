@@ -6,40 +6,22 @@
   "ticker_ar": "اصنع أسلوبك الخاص ✦ ارتدِ موقفك ✦ جماليات انعدام الجاذبية ✦ هذا هو Z ✦",
   "categories": [
     {
-      "slug": "tees",
-      "name_en": "TEES",
-      "name_ar": "تيشيرتات",
-      "image": "images/z-tee.jpg"
+      "slug": "hoodies",
+      "name_en": "HOODIES",
+      "name_ar": "هوديز",
+      "image": ""
+    },
+    {
+      "slug": "sweatshirts",
+      "name_en": "SWEATSHIRTS",
+      "name_ar": "سويت شيرت",
+      "image": ""
     },
     {
       "slug": "jackets",
       "name_en": "JACKETS",
       "name_ar": "جواكت",
       "image": "images/z-jacket.jpg"
-    },
-    {
-      "slug": "pants",
-      "name_en": "PANTS",
-      "name_ar": "بناطيل",
-      "image": "images/z-pants.jpg"
-    },
-    {
-      "slug": "caps",
-      "name_en": "CAPS",
-      "name_ar": "كابات",
-      "image": "images/z-cap-card.png"
-    },
-    {
-      "slug": "footwear",
-      "name_en": "FOOTWEAR",
-      "name_ar": "سلايدز",
-      "image": "images/z-slides-card.png"
-    },
-    {
-      "slug": "accessories",
-      "name_en": "BELTS",
-      "name_ar": "أحزمة",
-      "image": "images/z-belt-card.png"
     }
   ],
   "sections": [
@@ -59,10 +41,10 @@
     },
     {
       "key": "essentials",
-      "name_en": "CORE ACCESSORIES",
-      "name_ar": "إكسسوارات أساسية",
-      "subtitle_en": "EVERYDAY SIGNATURE HARDWARE",
-      "subtitle_ar": "تفاصيل وإكسسوارات يومية متقنة"
+      "name_en": "ESSENTIALS",
+      "name_ar": "أساسيات",
+      "subtitle_en": "EVERYDAY SIGNATURE PIECES",
+      "subtitle_ar": "قطع أساسية يومية متقنة"
     }
   ],
   "promo_codes": [

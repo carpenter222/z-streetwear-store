@@ -169,6 +169,15 @@ async function loadStoreData() {
                 };
             });
 
+        // Only show categories that have at least one visible product; if a category
+        // has no image of its own, use its first product's photo.
+        state.categories = state.categories
+            .map(c => {
+                const first = state.allProducts.find(p => p.category_slug === c.slug);
+                return first ? { ...c, image_url: c.image ? c.image_url : first.image_url } : null;
+            })
+            .filter(Boolean);
+
         applyTranslations();
         renderCategories();
         renderFilterTabs();
@@ -195,6 +204,10 @@ function fetchProducts() {
 function renderCategories() {
     const container = $('#collections-container');
     if (!container) return;
+
+    // Hide the whole collections block when no category has visible products
+    const section = $('#collections');
+    if (section) section.style.display = state.categories.length ? '' : 'none';
 
     container.innerHTML = state.categories.map(cat => {
         const name = state.lang === 'ar' ? (cat.name_ar || cat.name_en) : cat.name_en;
@@ -254,7 +267,14 @@ function renderSectionsAndProducts() {
 
     if (state.products.length === 0) {
         container.innerHTML = '';
-        if (emptyMsg) emptyMsg.style.display = 'block';
+        if (emptyMsg) {
+            // Empty store (nothing visible yet) vs. a search/filter with no matches
+            const key = state.allProducts.length === 0 ? 'store_empty' : 'no_products';
+            const t = (window.I18N && window.I18N[state.lang]) || {};
+            emptyMsg.dataset.i18n = key;
+            if (t[key]) emptyMsg.textContent = t[key];
+            emptyMsg.style.display = 'block';
+        }
         return;
     }
 

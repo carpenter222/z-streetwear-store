@@ -61,13 +61,13 @@ GitHub بينشر الموقع لوحده، وأي تعديل بيظهر على 
 
 ---
 
-## إضافة منتج جديد (مثلاً تيشيرت)
+## إضافة منتج جديد (مثلاً هودي)
 
 ### 1. ارفع الصورة
 
 1. افتح فولدر `images` على GitHub.
 2. دوس **Add file** ← **Upload files**.
-3. اسحب الصورة، ويُفضّل اسمها يكون إنجليزي من غير مسافات، زي `black-tee.jpg`.
+3. اسحب الصورة، ويُفضّل اسمها يكون إنجليزي من غير مسافات، زي `black-hoodie.jpg`.
 4. دوس **Commit changes**.
 
 ### 2. ضيف المنتج في `data/products.json`
@@ -76,19 +76,19 @@ GitHub بينشر الموقع لوحده، وأي تعديل بيظهر على 
 
 ```json
   {
-    "id": 8,
-    "name_en": "Z BLACK BASIC TEE",
-    "name_ar": "تيشيرت Z أسود بيسك",
-    "description_en": "Soft cotton everyday tee.",
-    "description_ar": "تيشيرت قطن ناعم للاستخدام اليومي.",
-    "price": 600,
+    "id": 3,
+    "name_en": "Z BLACK HEAVYWEIGHT HOODIE",
+    "name_ar": "هودي Z أسود هيفي ويت",
+    "description_en": "Heavyweight cotton hoodie.",
+    "description_ar": "هودي قطن تقيل.",
+    "price": 1200,
     "sale_price": null,
     "badge_en": "NEW DROP",
     "badge_ar": "إصدار جديد",
-    "category": "tees",
+    "category": "hoodies",
     "section": "new_arrivals",
     "sizes": ["S", "M", "L", "XL"],
-    "image": "images/black-tee.jpg",
+    "image": "images/black-hoodie.jpg",
     "visible": true
   }
 ```
@@ -101,10 +101,10 @@ GitHub بينشر الموقع لوحده، وأي تعديل بيظهر على 
 | `price` | السعر بالجنيه |
 | `sale_price` | سعر الخصم، أو `null` لو مفيش خصم |
 | `badge_en` / `badge_ar` | الشارة اللي على الصورة، أو `""` لو مش عايزها |
-| `category` | الكاتيجوري: `tees` / `jackets` / `pants` / `caps` / `footwear` / `accessories` |
+| `category` | الكاتيجوري: `hoodies` / `sweatshirts` / `jackets` (الكاتيجوري اللي مفيهاش منتجات ظاهرة مش بتظهر في الموقع) |
 | `section` | القسم في الصفحة: `featured` / `new_arrivals` / `essentials` |
 | `sizes` | المقاسات |
-| `image` | مسار الصورة، زي `images/black-tee.jpg` |
+| `image` | مسار الصورة، زي `images/black-hoodie.jpg` |
 | `visible` | `true` يظهر، `false` يتخفي من غير ما يتمسح |
 
 ## تعديل منتج
