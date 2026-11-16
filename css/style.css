@@ -757,7 +757,15 @@ h2 span {
     width: 100%;
     position: relative;
     overflow: hidden;
-    background: #090909;
+    /* red smoke backdrop built from the site palette (#070707 + #ff1735) */
+    background: #070707 url('../images/bg-smoke.jpg') center / cover no-repeat;
+}
+
+/* Transparent product shots (PNG/WebP) float on the smoke instead of being cropped */
+.product-image[src$=".png"],
+.product-image[src$=".webp"] {
+    object-fit: contain;
+    padding: 18px 22px 10px;
 }
 
 .product-image {
