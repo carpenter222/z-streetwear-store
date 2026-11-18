@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,800;1,900&family=Cairo:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=20261118b">
 </head>
 <body>
 
@@ -81,6 +81,13 @@
         </div>
 
         <!-- COLLECTIONS SECTION -->
+        <!-- COMING SOON PROMO (shown only while no products are visible) -->
+        <section class="soon-promo" id="soon-promo" aria-label="Coming soon" hidden>
+            <span class="soon-promo-tag" data-i18n="soon_tag">COMING SOON</span>
+            <h2 class="soon-promo-title"><span data-i18n="soon_title">THE FIRST DROP IS LANDING</span><span class="dot">.</span></h2>
+            <p data-i18n="soon_desc">Hoodies, winter crewnecks, jackets, caps and belts. Stay close — Z drops very soon.</p>
+        </section>
+
         <section id="collections" aria-label="Product Collections">
             <span class="eyebrow" data-i18n="collections_eyebrow">CURATED SILHOUETTES</span>
             <h2 data-i18n="collections_title">THE COLLECTIONS<span>.</span></h2>
@@ -238,7 +245,7 @@
     <div id="toast" role="status" aria-live="polite"></div>
 
     <!-- Engine Scripts -->
-    <script src="js/i18n.js"></script>
-    <script src="js/store.js"></script>
+    <script src="js/i18n.js?v=20261118"></script>
+    <script src="js/store.js?v=20261118"></script>
 </body>
 </html>

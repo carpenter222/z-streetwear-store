@@ -108,9 +108,17 @@ function applyTranslations() {
     const annKey = state.lang === 'ar' ? 'announcement_ar' : 'announcement_en';
     const tickerKey = state.lang === 'ar' ? 'ticker_ar' : 'ticker_en';
 
-    if (state.settings[annKey]) {
+    // While nothing is visible yet, the bar announces the launch instead of "drop is live"
+    const storeSoon = state.allProducts.length === 0 && state.settings.categories !== undefined;
+    if (storeSoon) {
+        $('#announcement-text').textContent = state.lang === 'ar'
+            ? 'قريبًا · أول دروب من Z نازل قريب جدًا · خليك متابع'
+            : 'COMING SOON · THE FIRST Z DROP IS LANDING · STAY TUNED';
+    } else if (state.settings[annKey]) {
         $('#announcement-text').textContent = state.settings[annKey];
     }
+    const promo = $('#soon-promo');
+    if (promo) promo.hidden = !storeSoon;
     if (state.settings[tickerKey]) {
         $('#ticker-text').textContent = `${state.settings[tickerKey]} ✦ ${state.settings[tickerKey]}`;
     }
@@ -169,14 +177,16 @@ async function loadStoreData() {
                 };
             });
 
-        // Only show categories that have at least one visible product; if a category
-        // has no image of its own, use its first product's photo.
-        state.categories = state.categories
-            .map(c => {
-                const first = state.allProducts.find(p => p.category_slug === c.slug);
-                return first ? { ...c, image_url: c.image ? c.image_url : first.image_url } : null;
-            })
-            .filter(Boolean);
+        // Always show every category. If it has no image of its own, use its first
+        // product's photo. Categories with no visible products are marked "coming soon".
+        state.categories = state.categories.map(c => {
+            const first = state.allProducts.find(p => p.category_slug === c.slug);
+            return {
+                ...c,
+                image_url: c.image ? c.image_url : (first ? first.image_url : ''),
+                comingSoon: !first
+            };
+        });
 
         applyTranslations();
         renderCategories();
@@ -205,16 +215,17 @@ function renderCategories() {
     const container = $('#collections-container');
     if (!container) return;
 
-    // Hide the whole collections block when no category has visible products
     const section = $('#collections');
     if (section) section.style.display = state.categories.length ? '' : 'none';
 
+    const soonLabel = state.lang === 'ar' ? 'قريبًا' : 'SOON';
     container.innerHTML = state.categories.map(cat => {
         const name = state.lang === 'ar' ? (cat.name_ar || cat.name_en) : cat.name_en;
         return `
-            <div class="collection-card" data-category="${cat.slug}" role="button" tabindex="0" aria-label="${name}">
+            <div class="collection-card${cat.comingSoon ? ' is-soon' : ''}" data-category="${cat.slug}" role="button" tabindex="0" aria-label="${name}">
                 <div class="collection-img">
-                    <img src="${cat.image_url || 'images/z-tee.jpg'}" alt="" loading="lazy">
+                    <img src="${cat.image_url || 'images/logo-transparent.png'}" alt="" loading="lazy">
+                    ${cat.comingSoon ? `<span class="soon-badge">${soonLabel}</span>` : ''}
                 </div>
                 <div class="collection-info">
                     <span>${name}</span>
@@ -271,7 +282,10 @@ function renderSectionsAndProducts() {
         container.innerHTML = '';
         if (emptyMsg) {
             // Empty store (nothing visible yet) vs. a search/filter with no matches
-            const key = state.allProducts.length === 0 ? 'store_empty' : 'no_products';
+            const activeCat = state.categories.find(c => c.slug === state.activeCategory);
+            const soon = state.allProducts.length === 0 || (!state.searchQuery && activeCat && activeCat.comingSoon);
+            const key = soon ? 'store_empty' : 'no_products';
+            emptyMsg.classList.toggle('is-soon', !!soon);
             const t = (window.I18N && window.I18N[state.lang]) || {};
             emptyMsg.dataset.i18n = key;
             if (t[key]) emptyMsg.textContent = t[key];
