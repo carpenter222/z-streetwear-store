@@ -213,7 +213,9 @@ function renderCategories() {
         const name = state.lang === 'ar' ? (cat.name_ar || cat.name_en) : cat.name_en;
         return `
             <div class="collection-card" data-category="${cat.slug}" role="button" tabindex="0" aria-label="${name}">
-                <div class="collection-img" style="background-image: url('${cat.image_url || 'images/z-tee.jpg'}');"></div>
+                <div class="collection-img">
+                    <img src="${cat.image_url || 'images/z-tee.jpg'}" alt="" loading="lazy">
+                </div>
                 <div class="collection-info">
                     <span>${name}</span>
                     <span class="collection-arrow">↗</span>

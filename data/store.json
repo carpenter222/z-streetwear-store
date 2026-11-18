@@ -21,7 +21,19 @@
       "slug": "jackets",
       "name_en": "JACKETS",
       "name_ar": "جواكت",
-      "image": "images/z-jacket.jpg"
+      "image": ""
+    },
+    {
+      "slug": "caps",
+      "name_en": "CAPS",
+      "name_ar": "كابات",
+      "image": ""
+    },
+    {
+      "slug": "belts",
+      "name_en": "BELTS",
+      "name_ar": "أحزمة",
+      "image": ""
     }
   ],
   "sections": [
