@@ -293,39 +293,34 @@ function renderSectionsAndProducts() {
         return;
     }
 
-    // Default View: Group products by dynamic sections
-    const defaultSections = state.sections.length ? state.sections : [
-        { key: 'featured', name_en: 'FEATURED DROP', name_ar: 'الإصدار المميز', subtitle_en: 'HEAVYWEIGHT FABRIC · SIGNATURE CUT', subtitle_ar: 'خامات ثقيلة فاخرة · قصّة مميزة' },
-        { key: 'new_arrivals', name_en: 'NEW ARRIVALS 2026', name_ar: 'وصل حديثاً 2026', subtitle_en: 'FRESH OFF THE PRODUCTION LINE', subtitle_ar: 'أحدث القطع مباشرة من خط الإنتاج' },
-        { key: 'essentials', name_en: 'CORE ACCESSORIES', name_ar: 'إكسسوارات أساسية', subtitle_en: 'EVERYDAY SIGNATURE HARDWARE', subtitle_ar: 'تفاصيل وإكسسوارات يومية متقنة' }
-    ];
-
+    // Default View: one block per category (hoodies, crewnecks, jackets...),
+    // each showing only its own products, in the order set in store.json.
+    const isAr = state.lang === 'ar';
     let html = '';
-    defaultSections.forEach(sec => {
-        const sectionProducts = state.products.filter(p => (p.section_key || 'featured') === sec.key);
-        if (sectionProducts.length > 0) {
-            const secTitle = state.lang === 'ar' ? sec.name_ar : sec.name_en;
-            const secSubtitle = state.lang === 'ar' ? sec.subtitle_ar : sec.subtitle_en;
+    state.categories.forEach(cat => {
+        const catProducts = state.products.filter(p => p.category_slug === cat.slug);
+        if (catProducts.length === 0) return;
+        const title = isAr ? (cat.name_ar || cat.name_en) : cat.name_en;
+        const count = isAr ? `${catProducts.length} قطعة` : `${catProducts.length} PIECE${catProducts.length > 1 ? 'S' : ''}`;
 
-            html += `
-                <div class="store-section-block" id="section-${sec.key}">
-                    <div class="section-headline-area">
-                        <div>
-                            <span class="section-subtitle">${secSubtitle || ''}</span>
-                            <h3>${secTitle}<span>.</span></h3>
-                        </div>
-                    </div>
-                    <div class="products-grid">
-                        ${sectionProducts.map(p => createProductCardHTML(p)).join('')}
+        html += `
+            <div class="store-section-block" id="cat-${cat.slug}">
+                <div class="section-headline-area">
+                    <div>
+                        <span class="section-subtitle">${count}</span>
+                        <h3>${title}<span>.</span></h3>
                     </div>
                 </div>
-            `;
-        }
+                <div class="products-grid">
+                    ${catProducts.map(p => createProductCardHTML(p)).join('')}
+                </div>
+            </div>
+        `;
     });
 
-    // Any products without a matching section
-    const assignedKeys = defaultSections.map(s => s.key);
-    const unassigned = state.products.filter(p => !assignedKeys.includes(p.section_key));
+    // Any products whose category no longer exists
+    const knownSlugs = state.categories.map(c => c.slug);
+    const unassigned = state.products.filter(p => !knownSlugs.includes(p.category_slug));
     if (unassigned.length > 0) {
         html += `
             <div class="store-section-block">
