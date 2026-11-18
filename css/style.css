@@ -607,6 +607,22 @@ h2 span {
     box-shadow: 0 0 40px rgba(255, 23, 53, 0.18);
 }
 .soon-promo[hidden] { display: none; }
+
+.promo-video {
+    max-width: 1100px;
+    margin: 30px auto 10px;
+    padding: 0 16px;
+}
+.promo-video video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    background: #000;
+    border: 1px solid rgba(255, 23, 53, 0.45);
+    border-radius: 18px;
+    box-shadow: 0 0 40px rgba(255, 23, 53, 0.18);
+}
 .soon-promo-tag {
     display: inline-block;
     background: var(--red, #ff1735);
