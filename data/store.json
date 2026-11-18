@@ -9,19 +9,19 @@
       "slug": "hoodies",
       "name_en": "HOODIES",
       "name_ar": "هوديز",
-      "image": "images/logo-transparent.png"
+      "image": "images/z-hoodie-cut.png"
     },
     {
       "slug": "sweatshirts",
       "name_en": "WINTER CREWNECKS",
       "name_ar": "راوند شتوي",
-      "image": "images/products/p-1794834269562-cut.png"
+      "image": "images/z-round-cut.png"
     },
     {
       "slug": "jackets",
       "name_en": "JACKETS",
       "name_ar": "جواكت",
-      "image": "images/products/p-1794719965449-cut.png"
+      "image": "images/z-jacket-cut.png"
     },
     {
       "slug": "caps",
