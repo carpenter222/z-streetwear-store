@@ -1,5 +1,23 @@
 [
   {
+    "id": 5,
+    "name_en": "Oil bomber jacket with military details.",
+    "name_ar": "جاكيت بومبر زيتي بتفاصيل عسكرية.",
+    "description_en": "Elevate your casual winter look with this bomber jacket, which features a modern military-inspired design drawn from classic pilot styles. The jacket is crafted with a glossy, wind-resistant outer shell in an attractive olive-green hue, complemented by details that lend it a unique yet functional appeal.",
+    "description_ar": "ارتقِ بإطلالتك الشتوية والكاجوال مع هذا الجاكيت البومبر المصمم بلمسة عسكرية عصرية مستوحاة من ستايل الطيارين الكلاسيكي. يتميز الجاكيت بخامة خارجية لامعة ومقاومة للرياح باللون الزيتي الجذاب، مع تفاصيل تمنحه طابعاً فريداً وعملياً في نفس الوقت.",
+    "price": 3200,
+    "sale_price": null,
+    "badge_en": "",
+    "badge_ar": "",
+    "category": "jackets",
+    "section": "featured",
+    "sizes": [
+      "L"
+    ],
+    "image": "images/products/p-1795109686491.png",
+    "visible": false
+  },
+  {
     "id": 4,
     "name_en": "\"UNNERS\" sweatshirt in phosphor green",
     "name_ar": "سويت شيرت \"UNNERS\" باللون الأخضر الفسفوري",
@@ -32,7 +50,7 @@
     "sizes": [
       "L"
     ],
-    "image": "images/products/p-1794834269562-cut.png",
+    "image": "images/products/p-1795109502206.png",
     "visible": false
   },
   {
@@ -50,7 +68,7 @@
     "sizes": [
       "XL"
     ],
-    "image": "images/products/p-1794719965449-cut.png",
+    "image": "images/products/p-1795109527546.jpg",
     "visible": false
   }
 ]
