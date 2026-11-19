@@ -1,5 +1,23 @@
 [
   {
+    "id": 4,
+    "name_en": "\"UNNERS\" sweatshirt in phosphor green",
+    "name_ar": "سويت شيرت \"UNNERS\" باللون الأخضر الفسفوري",
+    "description_en": "A sweatshirt with a comfortable cut, a round neck, sleeve ends and a rubber bottom edge suitable for everyday casual looks and comfortable sportswear.",
+    "description_ar": "سويت شيرت بقصة مريحة ورقبة دائرية  وأطراف أكمام وحافة سفلية مطاطية مناسب للإطلالات الكاجوال اليومية والملابس الرياضية المريحة.",
+    "price": 700,
+    "sale_price": null,
+    "badge_en": "",
+    "badge_ar": "",
+    "category": "sweatshirts",
+    "section": "featured",
+    "sizes": [
+      "L"
+    ],
+    "image": "images/products/p-1795109459087.png",
+    "visible": false
+  },
+  {
     "id": 3,
     "name_en": "Black sweatshirt.",
     "name_ar": "سويت شيرت بلون الاسود.",
