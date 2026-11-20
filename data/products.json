@@ -1,5 +1,23 @@
 [
   {
+    "id": 10,
+    "name_en": "High Quality Italian Beige Casual Jacket",
+    "name_ar": "جاكيت إيطالي بيج كاجوال عالي الجودة",
+    "description_en": "An Italian jacket with a modern and elegant design, combining practical and casual look made of lightweight and resistant fabric, ideal for moderate and light cold atmospheres.",
+    "description_ar": "جاكيت ايطالي بتصميم عصري وأنيق، يجمع بين المظهر العملي والكاجوال مصنوع من قماش خفيف الوزن ومقاوم، مثالي للأجواء المعتدلة والباردة الخفيفة.",
+    "price": 2800,
+    "sale_price": null,
+    "badge_en": "",
+    "badge_ar": "",
+    "category": "jackets",
+    "section": "featured",
+    "sizes": [
+      "Xl"
+    ],
+    "image": "images/products/p-1795199242759.jpg",
+    "visible": false
+  },
+  {
     "id": 9,
     "name_en": "Light Grey Light Casual Italian Jacket.",
     "name_ar": "جاكيت إيطالي كاجوال خفيف رمادي فاتح",
