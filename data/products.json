@@ -1,5 +1,23 @@
 [
   {
+    "id": 8,
+    "name_en": "Dior men's double face jacket with modern design",
+    "name_ar": "جاكت ديور رجالي دبل فيس بتصميم عصري.",
+    "description_en": "Double face jacket with a modern design that combines luxury and practicality in one piece.",
+    "description_ar": "جاكيت دبل فيس بتصميم عصري يجمع بين الفخامة والعملية في قطعة واحدة!\nيمنحك هذا الجاكيت حرية تغيير إطلالتك بكل سهولة؛ وجه أسود أنيق بنقشة بارزة متداخلة مع لمسات معدنية راقية وأزرار أنيقة على الجيوب، ووجه آخر باللون الأسود المزدان بنقشة أبيض وأسود جريئة تمنحك حضوراً لافتاً ومميزاً. مزوّد بسحّاب أمامي عملي وأساور وحافة مطاطية مريحة تحافظ على ثباته وأناقته في مختلف الأجواء والخروجات.",
+    "price": 3500,
+    "sale_price": null,
+    "badge_en": "",
+    "badge_ar": "",
+    "category": "jackets",
+    "section": "featured",
+    "sizes": [
+      "M"
+    ],
+    "image": "images/products/p-1795198379322.png",
+    "visible": false
+  },
+  {
     "id": 7,
     "name_en": "Men's jacket with a modern sports design in black",
     "name_ar": "جاكت رجالي بتصميم رياضي عصري باللون الأسود",
