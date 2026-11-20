@@ -1,5 +1,23 @@
 [
   {
+    "id": 7,
+    "name_en": "Men's jacket with a modern sports design in black",
+    "name_ar": "جاكت رجالي بتصميم رياضي عصري باللون الأسود",
+    "description_en": "It features phosphor green details and elegant white touches on the shoulders, with a high collar and a hidden front zipper for a more elegant look.",
+    "description_ar": "يتميز بتفاصيل خضراء فوسفورية ولمسات بيضاء أنيقة على الأكتاف، مع ياقة عالية وسوستة أمامية مخفية لمظهر أكثر أناقة.",
+    "price": 1700,
+    "sale_price": null,
+    "badge_en": "",
+    "badge_ar": "",
+    "category": "jackets",
+    "section": "featured",
+    "sizes": [
+      "Xl"
+    ],
+    "image": "images/products/p-1795198222840.jpeg",
+    "visible": false
+  },
+  {
     "id": 6,
     "name_en": "Men's distinctive red sweatshirt.",
     "name_ar": "سويت شيرت رجالي باللون الأحمر المميز.",
