@@ -69,7 +69,7 @@
       "M"
     ],
     "image": "images/products/p-1795198379322.png",
-    "visible": false
+    "visible": true
   },
   {
     "id": 7,
@@ -141,7 +141,7 @@
       "L"
     ],
     "image": "images/products/p-1795109459087.png",
-    "visible": false
+    "visible": true
   },
   {
     "id": 3,
@@ -159,7 +159,7 @@
       "L"
     ],
     "image": "images/products/p-1795109502206.png",
-    "visible": false
+    "visible": true
   },
   {
     "id": 1,
