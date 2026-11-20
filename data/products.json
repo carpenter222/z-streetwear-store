@@ -15,7 +15,7 @@
       "L"
     ],
     "image": "images/products/p-1795199701071.jpeg",
-    "visible": false
+    "visible": true
   },
   {
     "id": 10,
@@ -33,7 +33,7 @@
       "Xl"
     ],
     "image": "images/products/p-1795199242759.jpg",
-    "visible": false
+    "visible": true
   },
   {
     "id": 9,
@@ -51,7 +51,7 @@
       "2xl"
     ],
     "image": "images/products/p-1795199069953.jpeg",
-    "visible": false
+    "visible": true
   },
   {
     "id": 8,
@@ -69,7 +69,7 @@
       "M"
     ],
     "image": "images/products/p-1795198379322.png",
-    "visible": false
+    "visible": true
   },
   {
     "id": 7,
@@ -87,7 +87,7 @@
       "Xl"
     ],
     "image": "images/products/p-1795198222840.jpeg",
-    "visible": false
+    "visible": true
   },
   {
     "id": 6,
@@ -105,7 +105,7 @@
       "2xl"
     ],
     "image": "images/products/p-1795198030931.png",
-    "visible": false
+    "visible": true
   },
   {
     "id": 5,
@@ -123,7 +123,7 @@
       "L"
     ],
     "image": "images/products/p-1795109686491.png",
-    "visible": false
+    "visible": true
   },
   {
     "id": 4,
@@ -141,7 +141,7 @@
       "L"
     ],
     "image": "images/products/p-1795109459087.png",
-    "visible": false
+    "visible": true
   },
   {
     "id": 3,
@@ -159,7 +159,7 @@
       "L"
     ],
     "image": "images/products/p-1795109502206.png",
-    "visible": false
+    "visible": true
   },
   {
     "id": 1,
@@ -177,6 +177,6 @@
       "XL"
     ],
     "image": "images/products/p-1795109527546.jpg",
-    "visible": false
+    "visible": true
   }
 ]
