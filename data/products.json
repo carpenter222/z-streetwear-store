@@ -1,5 +1,23 @@
 [
   {
+    "id": 11,
+    "name_en": "Men's luxurious LV jacket in black",
+    "name_ar": "جاكيت رجالي فاخر من Louis Vuitton باللون الأسود",
+    "description_en": "It combines classic elegance and trendy details decorated with monogram pattern and LV's famous interlapping squares in black.",
+    "description_ar": "يجمع بين الأناقة الكلاسيكية والتفاصيل العصرية مزين بنقشة المونوغرام والمربعات المتداخلة الشهيرة لـ LV باللون الأسود.",
+    "price": 3200,
+    "sale_price": null,
+    "badge_en": "",
+    "badge_ar": "",
+    "category": "jackets",
+    "section": "featured",
+    "sizes": [
+      "L"
+    ],
+    "image": "images/products/p-1795199701071.jpeg",
+    "visible": false
+  },
+  {
     "id": 10,
     "name_en": "High Quality Italian Beige Casual Jacket",
     "name_ar": "جاكيت إيطالي بيج كاجوال عالي الجودة",
