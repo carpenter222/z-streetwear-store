@@ -1,5 +1,23 @@
 [
   {
+    "id": 6,
+    "name_en": "Men's distinctive red sweatshirt.",
+    "name_ar": "سويت شيرت رجالي باللون الأحمر المميز.",
+    "description_en": "Elegant youthful design and comfortable story. FEATURES A GIVENCHY PRINT IN THE MIDDLE OF THE CHEST WITH LUXURIOUS DETAILS AND TOUCHES IN A BROWN AND GOLD PRINT, WITH A COLLAR, BRACELETS AND A RIBBED WAIST FOR A HARMONIOUS AND MODERN LOOK.",
+    "description_ar": "تصميم شبابي أنيق وقصة مريحة. يتميز بطباعة GIVENCHY في منتصف الصدر بتفاصيل فخمة ولمسات بنقشة بنية وذهبية، مع ياقة وأساور وخصر مضلع لإطلالة متناسقة وعصرية.",
+    "price": 700,
+    "sale_price": null,
+    "badge_en": "",
+    "badge_ar": "",
+    "category": "sweatshirts",
+    "section": "featured",
+    "sizes": [
+      "2xl"
+    ],
+    "image": "images/products/p-1795198030931.png",
+    "visible": false
+  },
+  {
     "id": 5,
     "name_en": "Oil bomber jacket with military details.",
     "name_ar": "جاكيت بومبر زيتي بتفاصيل عسكرية.",
