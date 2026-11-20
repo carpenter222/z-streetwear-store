@@ -1,5 +1,23 @@
 [
   {
+    "id": 9,
+    "name_en": "Light Grey Light Casual Italian Jacket.",
+    "name_ar": "جاكيت إيطالي كاجوال خفيف رمادي فاتح",
+    "description_en": "An Italian jacket with a modern and distinctive design that combines sporty character and everyday casual elegance, in a light gray color that is easy to coordinate.",
+    "description_ar": "جاكيت إيطالي بتصميم عصري ومميز يجمع بين الطابع الرياضي والأناقة الكاجوال اليومية، بلون رمادي فاتح (Light Gray) يسهل تنسيقه.",
+    "price": 2800,
+    "sale_price": null,
+    "badge_en": "",
+    "badge_ar": "",
+    "category": "jackets",
+    "section": "featured",
+    "sizes": [
+      "2xl"
+    ],
+    "image": "images/products/p-1795199069953.jpeg",
+    "visible": false
+  },
+  {
     "id": 8,
     "name_en": "Dior men's double face jacket with modern design",
     "name_ar": "جاكت ديور رجالي دبل فيس بتصميم عصري.",
