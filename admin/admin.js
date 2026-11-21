@@ -17,7 +17,7 @@ const app = {
     shas: {},              // last known file versions on GitHub
     saved: { products: '', store: '' }, // JSON as last published, to detect unsaved edits
     editingId: null,
-    pendingImage: null,    // { path, previewUrl } for the product form
+    formImages: [],        // image paths for the product form; first one is the main image
     localPreviews: {}      // image path -> data URL, for images not yet live on the site
 };
 
@@ -258,7 +258,6 @@ function fillSelect(select, items, valueKey, current) {
 
 function openProductForm(product = null) {
     app.editingId = product ? product.id : null;
-    app.pendingImage = null;
     $('#product-form').reset();
     $('#pf-error').textContent = '';
     $('#pf-image-status').textContent = '';
@@ -279,13 +278,41 @@ function openProductForm(product = null) {
     $('#pf-badge-en').value = p.badge_en || '';
     $('#pf-visible').checked = p.visible !== false;
 
-    const preview = $('#pf-preview');
-    preview.hidden = !p.image;
-    if (p.image) preview.src = imageSrc(p.image);
-    $('#pf-image-label').textContent = p.image ? 'تغيير الصورة' : 'اختار صورة';
+    app.formImages = productImages(p);
+    renderFormImages();
 
     $('#product-dialog').showModal();
 }
+
+// Older products only have "image"; newer ones also have an "images" list.
+function productImages(p) {
+    const list = Array.isArray(p.images) ? p.images.filter(Boolean) : [];
+    if (p.image && !list.includes(p.image)) list.unshift(p.image);
+    return list;
+}
+
+function renderFormImages() {
+    $('#pf-gallery').innerHTML = app.formImages.map((path, i) => `
+        <div class="pf-thumb ${i === 0 ? 'main' : ''}">
+            <img src="${escapeHTML(imageSrc(path))}" alt="">
+            <button type="button" class="pf-del" data-i="${i}" title="شيل الصورة" aria-label="شيل الصورة">×</button>
+            <button type="button" class="pf-main" data-i="${i}" title="اجعلها الصورة الرئيسية" aria-label="اجعلها الصورة الرئيسية">★</button>
+            ${i === 0 ? '<span class="pf-tag">رئيسية</span>' : ''}
+        </div>`).join('');
+    $('#pf-image-label').textContent = app.formImages.length ? 'زوّد صور' : 'اختار صور';
+}
+
+$('#pf-gallery').addEventListener('click', (e) => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    const i = Number(btn.dataset.i);
+    if (btn.classList.contains('pf-del')) {
+        app.formImages.splice(i, 1);
+    } else if (btn.classList.contains('pf-main')) {
+        app.formImages.unshift(...app.formImages.splice(i, 1));
+    }
+    renderFormImages();
+});
 
 const closeProductForm = () => $('#product-dialog').close();
 $('#add-product-btn').addEventListener('click', () => openProductForm());
@@ -318,26 +345,33 @@ const blobToDataURL = (blob) => new Promise((res, rej) => {
 });
 
 $('#pf-image-file').addEventListener('change', async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+    const files = [...e.target.files];
+    if (!files.length) return;
     const status = $('#pf-image-status');
     const saveBtn = $('#save-product');
     saveBtn.disabled = true;
-    status.textContent = 'جاري رفع الصورة...';
+    let done = 0;
+    const errors = [];
     try {
-        const { blob, ext } = await prepareImage(file);
-        if (blob.size > 20 * 1024 * 1024) throw new Error('الصورة كبيرة جداً (أكتر من 20 ميجا).');
-        const dataURL = await blobToDataURL(blob);
-        const path = `images/products/p-${Date.now()}.${ext}`;
-        await writeFile(path, dataURL.split(',')[1], `رفع صورة منتج ${path}`);
-        app.localPreviews[path] = dataURL;
-        app.pendingImage = { path };
-        const preview = $('#pf-preview');
-        preview.src = dataURL;
-        preview.hidden = false;
-        status.textContent = 'تم رفع الصورة ✓';
-    } catch (err) {
-        status.textContent = err.status ? friendlyError(err) : err.message;
+        for (const file of files) {
+            status.textContent = `جاري رفع الصور... (${done + 1} من ${files.length})`;
+            try {
+                const { blob, ext } = await prepareImage(file);
+                if (blob.size > 20 * 1024 * 1024) throw new Error('الصورة كبيرة جداً (أكتر من 20 ميجا).');
+                const dataURL = await blobToDataURL(blob);
+                const path = `images/products/p-${Date.now()}-${done}.${ext}`;
+                await writeFile(path, dataURL.split(',')[1], `رفع صورة منتج ${path}`);
+                app.localPreviews[path] = dataURL;
+                app.formImages.push(path);
+                renderFormImages();
+            } catch (err) {
+                errors.push(err.status ? friendlyError(err) : err.message);
+            }
+            done++;
+        }
+        status.textContent = errors.length
+            ? `اترفع ${done - errors.length} من ${files.length}. ${errors[0]}`
+            : (files.length > 1 ? `تم رفع ${files.length} صور ✓` : 'تم رفع الصورة ✓');
     } finally {
         saveBtn.disabled = false;
         e.target.value = '';
@@ -348,7 +382,8 @@ $('#product-form').addEventListener('submit', (e) => {
     e.preventDefault();
     const err = $('#pf-error');
     const existing = app.products.find(p => p.id === app.editingId);
-    const image = app.pendingImage?.path || existing?.image;
+    const images = [...app.formImages];
+    const image = images[0];
 
     const price = Number($('#pf-price').value);
     const saleRaw = $('#pf-sale').value.trim();
@@ -372,6 +407,7 @@ $('#product-form').addEventListener('submit', (e) => {
         section: $('#pf-section').value,
         sizes: sizes.length ? sizes : ['ONE SIZE'],
         image,
+        images,
         visible: $('#pf-visible').checked
     };
 

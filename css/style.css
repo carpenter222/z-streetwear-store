@@ -1501,3 +1501,86 @@ footer {
     .form-grid { grid-template-columns: 1fr; }
     .form-group.full { grid-column: span 1; }
 }
+
+/* ===== Product view: photo gallery + size ===== */
+.product-image-wrap { cursor: pointer; }
+.product-title-btn {
+    background: none; border: 0; padding: 0; margin: 0;
+    color: inherit; font: inherit; text-align: inherit; cursor: pointer;
+}
+.product-title-btn:hover { color: var(--red); }
+.product-photo-count {
+    position: absolute; bottom: 10px; inset-inline-start: 10px; z-index: 2;
+    background: rgba(0, 0, 0, 0.7); color: #fff;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em;
+    padding: 4px 8px; border-radius: 4px; pointer-events: none;
+}
+
+#product-modal {
+    position: fixed; inset: 0; z-index: 3000;
+    display: flex; align-items: center; justify-content: center; padding: 20px;
+    visibility: hidden; opacity: 0; transition: opacity 0.25s ease, visibility 0.25s;
+}
+#product-modal.active { visibility: visible; opacity: 1; }
+.pm-backdrop { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(4px); }
+.pm-panel {
+    position: relative; width: min(1000px, 100%); max-height: calc(100vh - 40px); overflow-y: auto;
+    display: grid; grid-template-columns: 1.15fr 1fr;
+    background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 12px;
+    transform: translateY(16px); transition: transform 0.25s ease;
+}
+#product-modal.active .pm-panel { transform: none; }
+.pm-close {
+    position: absolute; top: 10px; inset-inline-end: 10px; z-index: 3;
+    width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--border-color);
+    background: var(--bg-elevated); color: var(--text-primary); font-size: 1.5rem; line-height: 1; cursor: pointer;
+}
+.pm-close:hover { background: var(--red); color: #fff; border-color: var(--red); }
+.pm-gallery { padding: 16px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.pm-main {
+    position: relative; aspect-ratio: 4 / 5; border-radius: 8px; overflow: hidden;
+    background: var(--bg-card); touch-action: pan-y;
+}
+.pm-main img { width: 100%; height: 100%; object-fit: cover; display: block; user-select: none; }
+.pm-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
+    width: 42px; height: 42px; border-radius: 50%; border: 0;
+    background: rgba(0, 0, 0, 0.55); color: #fff; font-size: 1.8rem; line-height: 1; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; padding-bottom: 4px;
+}
+.pm-arrow:hover { background: var(--red); }
+.pm-prev { left: 10px; }
+.pm-next { right: 10px; }
+.pm-counter {
+    position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.6); color: #fff; font-size: 0.75rem; font-weight: 700;
+    padding: 3px 10px; border-radius: 20px; direction: ltr;
+}
+.pm-thumbs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+.pm-thumb {
+    flex: 0 0 64px; height: 80px; padding: 0; border-radius: 6px; overflow: hidden;
+    border: 2px solid transparent; background: var(--bg-card); cursor: pointer; opacity: 0.6;
+}
+.pm-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pm-thumb:hover { opacity: 0.9; }
+.pm-thumb.active { border-color: var(--red); opacity: 1; }
+#product-modal.single .pm-arrow,
+#product-modal.single .pm-thumbs,
+#product-modal.single .pm-counter { display: none; }
+.pm-info { padding: 56px 24px 24px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.pm-title { font-family: var(--font-heading); font-size: 1.8rem; line-height: 1.15; color: var(--text-primary); margin: 0; }
+[dir="rtl"] .pm-title { font-family: var(--font-ar); }
+.pm-desc { color: var(--text-muted); line-height: 1.7; margin: 0; white-space: pre-line; }
+.pm-desc:empty { display: none; }
+.pm-size-label { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; color: var(--text-primary); }
+#pm-sizes .size-chip { min-width: 46px; padding: 10px 12px; font-size: 0.9rem; }
+.pm-add { margin-top: auto; width: 100%; padding: 16px; }
+
+@media (max-width: 768px) {
+    #product-modal { padding: 0; align-items: flex-end; }
+    .pm-panel { grid-template-columns: 1fr; max-height: 92vh; border-radius: 14px 14px 0 0; }
+    .pm-gallery { padding: 12px; }
+    .pm-info { padding: 4px 18px 20px; }
+    .pm-title { font-size: 1.4rem; }
+    .pm-close { top: 18px; inset-inline-end: 18px; background: rgba(0, 0, 0, 0.6); color: #fff; border-color: transparent; }
+}

@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="admin.css?v=20261121">
 </head>
 <body>
 
@@ -116,12 +116,13 @@
             </div>
 
             <div class="image-picker">
-                <img id="pf-preview" alt="" hidden>
+                <div class="pf-gallery" id="pf-gallery"></div>
                 <div>
                     <label class="btn btn-ghost file-btn">
-                        <span id="pf-image-label">اختار صورة</span>
-                        <input type="file" id="pf-image-file" accept="image/*" hidden>
+                        <span id="pf-image-label">اختار صور</span>
+                        <input type="file" id="pf-image-file" accept="image/*" multiple hidden>
                     </label>
+                    <p class="muted small">ممكن تختار أكتر من صورة (زوايا مختلفة). أول صورة هي الصورة الرئيسية — دوس ★ على أي صورة تخليها رئيسية.</p>
                     <p class="muted small" id="pf-image-status"></p>
                 </div>
             </div>
@@ -164,6 +165,6 @@
     <div id="toast" role="status" aria-live="polite"></div>
 
     <script src="common.js"></script>
-    <script src="admin.js"></script>
+    <script src="admin.js?v=20261121"></script>
 </body>
 </html>

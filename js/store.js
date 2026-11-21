@@ -135,6 +135,13 @@ state.promoCodes = [];
 // Accept "images/x.jpg" or "/images/x.jpg" so paths work under a GitHub Pages sub-folder.
 const assetPath = (p) => String(p || 'images/z-tee.jpg').replace(/^\/+/, '');
 
+// Older products only have "image"; newer ones also have "images" (main image first).
+function productImageList(p) {
+    const list = Array.isArray(p.images) ? p.images.filter(Boolean) : [];
+    if (p.image && !list.includes(p.image)) list.unshift(p.image);
+    return list.length ? list : [p.image];
+}
+
 async function loadJSON(path) {
     const res = await fetch(`${path}?v=${Date.now()}`, { cache: 'no-store' });
     if (!res.ok) throw new Error(`Could not load ${path}`);
@@ -173,7 +180,8 @@ async function loadStoreData() {
                     category_name_ar: cat.name_ar,
                     section_key: p.section || 'featured',
                     sizes: Array.isArray(p.sizes) ? p.sizes : [],
-                    image_url: assetPath(p.image)
+                    image_url: assetPath(p.image),
+                    image_urls: productImageList(p).map(assetPath)
                 };
             });
 
@@ -368,12 +376,13 @@ function createProductCardHTML(p) {
     return `
         <article class="product-card" data-id="${p.id}" tabindex="0" aria-label="${title}">
             ${badge ? `<span class="product-badge">${badge}</span>` : ''}
-            <div class="product-image-wrap">
+            <div class="product-image-wrap" data-action="open-product" data-id="${p.id}">
                 <img class="product-image" src="${p.image_url || 'images/z-tee.jpg'}" alt="${title}" loading="lazy">
+                ${p.image_urls.length > 1 ? `<span class="product-photo-count">${p.image_urls.length} ${isAr ? 'صور' : 'PHOTOS'}</span>` : ''}
             </div>
             <div class="product-details">
                 <span class="product-category-tag">${catName}</span>
-                <h3 class="product-title">${title}</h3>
+                <h3 class="product-title"><button type="button" class="product-title-btn" data-action="open-product" data-id="${p.id}">${title}</button></h3>
                 <p class="product-desc">${desc || ''}</p>
                 <div class="product-pricing">
                     <span class="current-price">${formatMoney(currentPrice)}</span>
@@ -421,6 +430,141 @@ function initProductEvents() {
             card.style.transform = '';
         });
     });
+}
+
+// ====================================================================
+// PRODUCT VIEW (photo gallery + size)
+// ====================================================================
+const productView = { id: null, photos: [], index: 0, lastFocus: null };
+
+function initProductModal() {
+    if ($('#product-modal')) return;
+    const modal = document.createElement('div');
+    modal.id = 'product-modal';
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-labelledby', 'pm-title');
+    modal.innerHTML = `
+        <div class="pm-backdrop" data-pm="close"></div>
+        <div class="pm-panel">
+            <button type="button" class="pm-close" data-pm="close" aria-label="Close">×</button>
+            <div class="pm-gallery">
+                <div class="pm-main">
+                    <img id="pm-image" src="" alt="">
+                    <button type="button" class="pm-arrow pm-prev" data-pm="prev" aria-label="Previous photo">‹</button>
+                    <button type="button" class="pm-arrow pm-next" data-pm="next" aria-label="Next photo">›</button>
+                    <span class="pm-counter" id="pm-counter"></span>
+                </div>
+                <div class="pm-thumbs" id="pm-thumbs"></div>
+            </div>
+            <div class="pm-info">
+                <span class="product-category-tag" id="pm-category"></span>
+                <h3 class="pm-title" id="pm-title"></h3>
+                <div class="product-pricing" id="pm-pricing"></div>
+                <p class="pm-desc" id="pm-desc"></p>
+                <div class="pm-size-label" id="pm-size-label"></div>
+                <div class="size-selector" id="pm-sizes"></div>
+                <button type="button" class="btn-add-bag pm-add" data-pm="add"></button>
+            </div>
+        </div>`;
+    document.body.appendChild(modal);
+
+    modal.addEventListener('click', (e) => {
+        const el = e.target.closest('[data-pm], .pm-thumb, .size-chip');
+        if (!el) return;
+        if (el.classList.contains('pm-thumb')) return showProductPhoto(Number(el.dataset.i));
+        if (el.classList.contains('size-chip')) {
+            $$('#pm-sizes .size-chip').forEach(c => c.classList.toggle('selected', c === el));
+            return;
+        }
+        const act = el.dataset.pm;
+        if (act === 'close') closeProductModal();
+        else if (act === 'prev') showProductPhoto(productView.index - 1);
+        else if (act === 'next') showProductPhoto(productView.index + 1);
+        else if (act === 'add') {
+            const chip = $('#pm-sizes .size-chip.selected');
+            addToCart(productView.id, chip ? chip.dataset.size : undefined);
+            closeProductModal();
+        }
+    });
+
+    // Swipe between photos on phones
+    let startX = null;
+    const main = modal.querySelector('.pm-main');
+    main.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, { passive: true });
+    main.addEventListener('touchend', (e) => {
+        if (startX === null) return;
+        const dx = e.changedTouches[0].clientX - startX;
+        startX = null;
+        if (Math.abs(dx) < 40) return;
+        const forward = state.lang === 'ar' ? dx > 0 : dx < 0;
+        showProductPhoto(productView.index + (forward ? 1 : -1));
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (!modal.classList.contains('active')) return;
+        if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+        const forward = (e.key === 'ArrowRight') !== (state.lang === 'ar');
+        showProductPhoto(productView.index + (forward ? 1 : -1));
+    });
+}
+
+function openProductModal(productId) {
+    const id = Number(productId);
+    const p = state.allProducts.find(x => x.id === id) || state.products.find(x => x.id === id);
+    const modal = $('#product-modal');
+    if (!p || !modal) return;
+
+    const isAr = state.lang === 'ar';
+    const title = isAr ? (p.title_ar || p.title) : p.title;
+    const desc = isAr ? (p.description_ar || p.description) : p.description;
+    const hasSale = p.sale_price !== null && p.sale_price < p.price;
+    const sizes = Array.isArray(p.sizes) && p.sizes.length ? p.sizes : ['ONE SIZE'];
+    const cardChip = document.querySelector(`.product-card[data-id="${id}"] .size-chip.selected`);
+    const preselected = cardChip ? cardChip.dataset.size : sizes[0];
+
+    productView.id = id;
+    productView.photos = (p.image_urls && p.image_urls.length ? p.image_urls : [p.image_url]).filter(Boolean);
+    productView.lastFocus = document.activeElement;
+
+    $('#pm-category').textContent = isAr ? (p.category_name_ar || p.category_name_en || '') : (p.category_name_en || 'STREETWEAR');
+    $('#pm-title').textContent = title;
+    $('#pm-desc').textContent = desc || '';
+    $('#pm-pricing').innerHTML = `<span class="current-price">${formatMoney(hasSale ? p.sale_price : p.price)}</span>`
+        + (hasSale ? `<span class="original-price">${formatMoney(p.price)}</span>` : '');
+    $('#pm-size-label').textContent = isAr ? 'اختر المقاس' : 'SELECT SIZE';
+    $('#pm-sizes').innerHTML = sizes.map(s =>
+        `<button type="button" class="size-chip ${s === preselected ? 'selected' : ''}" data-size="${s}">${s}</button>`).join('');
+    modal.querySelector('.pm-add').innerHTML = `<span>${isAr ? 'أضف للحقيبة' : 'ADD TO BAG'}</span><span>+</span>`;
+
+    const multi = productView.photos.length > 1;
+    modal.classList.toggle('single', !multi);
+    $('#pm-thumbs').innerHTML = multi ? productView.photos.map((src, i) =>
+        `<button type="button" class="pm-thumb" data-i="${i}" aria-label="${isAr ? 'صورة' : 'Photo'} ${i + 1}"><img src="${src}" alt="" loading="lazy"></button>`).join('') : '';
+
+    showProductPhoto(0);
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    modal.querySelector('.pm-close').focus();
+}
+
+function showProductPhoto(i) {
+    const n = productView.photos.length;
+    if (!n) return;
+    productView.index = ((i % n) + n) % n;
+    const img = $('#pm-image');
+    img.src = productView.photos[productView.index];
+    img.alt = $('#pm-title').textContent;
+    $('#pm-counter').textContent = n > 1 ? `${productView.index + 1} / ${n}` : '';
+    $$('#pm-thumbs .pm-thumb').forEach((t, idx) => t.classList.toggle('active', idx === productView.index));
+}
+
+function closeProductModal() {
+    const modal = $('#product-modal');
+    if (!modal) return;
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+    if (productView.lastFocus && productView.lastFocus.focus) productView.lastFocus.focus();
 }
 
 // ====================================================================
@@ -510,13 +654,14 @@ function renderCart() {
     localStorage.setItem('z_cart', JSON.stringify(state.cart));
 }
 
-function addToCart(productId) {
-    const product = state.products.find(p => p.id === Number(productId));
+function addToCart(productId, size) {
+    const id = Number(productId);
+    const product = state.products.find(p => p.id === id) || state.allProducts.find(p => p.id === id);
     if (!product) return;
 
     const card = document.querySelector(`.product-card[data-id="${productId}"]`);
     const selectedSizeChip = card ? card.querySelector('.size-chip.selected') : null;
-    const selectedSize = selectedSizeChip ? selectedSizeChip.dataset.size : (product.sizes[0] || 'ONE SIZE');
+    const selectedSize = size || (selectedSizeChip ? selectedSizeChip.dataset.size : (product.sizes[0] || 'ONE SIZE'));
     const effectivePrice = product.sale_price !== null ? product.sale_price : product.price;
 
     const existingIndex = state.cart.findIndex(item => item.productId === product.id && item.size === selectedSize);
@@ -748,8 +893,12 @@ function setupEventListeners() {
     // Add to bag delegation
     $('#sections-product-container').addEventListener('click', (e) => {
         const addBtn = e.target.closest('[data-action="add-bag"]');
-        if (addBtn) addToCart(addBtn.dataset.id);
+        if (addBtn) { addToCart(addBtn.dataset.id); return; }
+        const open = e.target.closest('[data-action="open-product"]');
+        if (open) openProductModal(open.dataset.id);
     });
+
+    initProductModal();
 
     // Cart actions
     $('#cart-items').addEventListener('click', (e) => {
@@ -778,6 +927,8 @@ function setupEventListeners() {
 
     // Escape Key closes modals
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeCartDrawer();
+        if (e.key !== 'Escape') return;
+        if ($('#product-modal')?.classList.contains('active')) { closeProductModal(); return; }
+        closeCartDrawer();
     });
 }
