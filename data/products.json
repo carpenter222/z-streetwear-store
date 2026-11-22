@@ -1,5 +1,26 @@
 [
   {
+    "id": 15,
+    "name_en": "Blue-engrained leather strap (Lv)",
+    "name_ar": "حزام جلد بنقشه زرقاء (طراز Lv)",
+    "description_en": "",
+    "description_ar": "",
+    "price": 200,
+    "sale_price": null,
+    "badge_en": "",
+    "badge_ar": "",
+    "category": "belts",
+    "section": "featured",
+    "sizes": [
+      "One size"
+    ],
+    "image": "images/products/p-1795366936660-0.jpg",
+    "images": [
+      "images/products/p-1795366936660-0.jpg"
+    ],
+    "visible": true
+  },
+  {
     "id": 14,
     "name_en": "Black Metal Leather Belt (LV)",
     "name_ar": "حزام جلد  معدني أسود (طراز LV)",
