@@ -1,5 +1,26 @@
 [
   {
+    "id": 14,
+    "name_en": "Black Metal Leather Belt (LV)",
+    "name_ar": "حزام جلد  معدني أسود (طراز LV)",
+    "description_en": "",
+    "description_ar": "",
+    "price": 200,
+    "sale_price": null,
+    "badge_en": "",
+    "badge_ar": "",
+    "category": "belts",
+    "section": "featured",
+    "sizes": [
+      "One size"
+    ],
+    "image": "images/products/p-1795366840956-0.jpg",
+    "images": [
+      "images/products/p-1795366840956-0.jpg"
+    ],
+    "visible": true
+  },
+  {
     "id": 13,
     "name_en": "Carrohe pattern belt (beige and sky blue) with black metal buckle (TB model)",
     "name_ar": "حزام بنقشة الكاروهات (البيج والأزرق السماوي) مع إبزيم معدني أسود (طراز TB)",
