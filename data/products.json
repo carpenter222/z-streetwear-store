@@ -1,5 +1,26 @@
 [
   {
+    "id": 16,
+    "name_en": "White leather belt with white engrave (dior model)",
+    "name_ar": "حزام جلد ابيض بنقشه بيضاء (طراز dior)",
+    "description_en": "",
+    "description_ar": "",
+    "price": 200,
+    "sale_price": null,
+    "badge_en": "",
+    "badge_ar": "",
+    "category": "belts",
+    "section": "featured",
+    "sizes": [
+      "One size"
+    ],
+    "image": "images/products/p-1795367062474-0.jpg",
+    "images": [
+      "images/products/p-1795367062474-0.jpg"
+    ],
+    "visible": true
+  },
+  {
     "id": 15,
     "name_en": "Blue-engrained leather strap (Lv)",
     "name_ar": "حزام جلد بنقشه زرقاء (طراز Lv)",
