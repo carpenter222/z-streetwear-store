@@ -1,5 +1,26 @@
 [
   {
+    "id": 18,
+    "name_en": "Hermès Black & White Cap",
+    "name_ar": "كاب هيرميس اسود و أبيض",
+    "description_en": "Cap Hermes in elegant black, with distinctive white embroidery in the shape of the H logo at the front, with a white edge that adds a different touch to the design. It features elegant fine details, in addition to an adjustable rear walk for better comfort and stability.",
+    "description_ar": "كاب هيرميس باللون الأسود الأنيق، بتطريز أبيض مميز على شكل شعار H في الأمام، مع حافة بيضاء تضيف لمسة مختلفة للتصميم. يتميز بتفاصيل دقيقة وخامة أنيقة، بالإضافه الي سير خلفي قابل للتعديل لراحه وثبات افضل.",
+    "price": 400,
+    "sale_price": null,
+    "badge_en": "",
+    "badge_ar": "",
+    "category": "caps",
+    "section": "featured",
+    "sizes": [
+      "One size"
+    ],
+    "image": "images/products/p-1795578672409-0.png",
+    "images": [
+      "images/products/p-1795578672409-0.png"
+    ],
+    "visible": false
+  },
+  {
     "id": 17,
     "name_en": "Fashon Leather Belts Different Models",
     "name_ar": "أحزمة جلد فاشون طرازات مختلفة",
