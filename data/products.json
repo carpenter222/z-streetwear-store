@@ -1,5 +1,26 @@
 [
   {
+    "id": 19,
+    "name_en": "Hermès Orange & White Cap",
+    "name_ar": "كاب هيرميس برتقالي و ابيض",
+    "description_en": "Hermes cap in distinctive orange, with elegant white embroidery for the H logo in the front, with an off-white edge that adds a touch of luxury to the design. It is characterized by consistent details.",
+    "description_ar": "كاب هيرميس باللون البرتقالي المميز، بتطريز أبيض أنيق لشعار H في الأمام، مع حافة باللون الأوف وايت تضيف لمسة فخامة للتصميم. يتميز بتفاصيل متناسقه .",
+    "price": 400,
+    "sale_price": null,
+    "badge_en": "",
+    "badge_ar": "",
+    "category": "caps",
+    "section": "featured",
+    "sizes": [
+      "One size"
+    ],
+    "image": "images/products/p-1795579269504-0.png",
+    "images": [
+      "images/products/p-1795579269504-0.png"
+    ],
+    "visible": false
+  },
+  {
     "id": 18,
     "name_en": "Hermès Black & White Cap",
     "name_ar": "كاب هيرميس اسود و أبيض",
