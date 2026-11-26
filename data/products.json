@@ -1,5 +1,26 @@
 [
   {
+    "id": 20,
+    "name_en": "Los Angeles Blue Corduroy Cap",
+    "name_ar": "كاب لوس أنجلوس ازرق",
+    "description_en": "A youthful cap in royal blue, made of ribbed cordroy material, with LOS ANGELES embroidery in white in front, and a front cover in blue .",
+    "description_ar": "كاب بتصميم شبابي مميز باللون الأزرق الملكي، مصنوع من خامة كوردروي مضلعة، مع تطريز LOS ANGELES باللون الأبيض في الأمام، وغطاء أمامي باللون الازرق",
+    "price": 300,
+    "sale_price": null,
+    "badge_en": "",
+    "badge_ar": "",
+    "category": "caps",
+    "section": "featured",
+    "sizes": [
+      "One size"
+    ],
+    "image": "images/products/p-1795709037757-0.png",
+    "images": [
+      "images/products/p-1795709037757-0.png"
+    ],
+    "visible": false
+  },
+  {
     "id": 19,
     "name_en": "Hermès Orange & White Cap",
     "name_ar": "كاب هيرميس برتقالي و ابيض",
