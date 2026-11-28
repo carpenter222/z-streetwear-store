@@ -41,7 +41,7 @@
     "images": [
       "images/products/p-1795837682902-0.png"
     ],
-    "visible": false
+    "visible": true
   },
   {
     "id": 22,
@@ -62,7 +62,7 @@
     "images": [
       "images/products/p-1795837479838-0.png"
     ],
-    "visible": false
+    "visible": true
   },
   {
     "id": 21,
@@ -83,7 +83,7 @@
     "images": [
       "images/products/p-1795837148785-0.png"
     ],
-    "visible": false
+    "visible": true
   },
   {
     "id": 20,
@@ -104,7 +104,7 @@
     "images": [
       "images/products/p-1795709037757-0.png"
     ],
-    "visible": false
+    "visible": true
   },
   {
     "id": 19,
@@ -125,7 +125,7 @@
     "images": [
       "images/products/p-1795579269504-0.png"
     ],
-    "visible": false
+    "visible": true
   },
   {
     "id": 18,
@@ -146,7 +146,7 @@
     "images": [
       "images/products/p-1795578672409-0.png"
     ],
-    "visible": false
+    "visible": true
   },
   {
     "id": 17,
