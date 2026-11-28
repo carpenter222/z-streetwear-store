@@ -1,5 +1,28 @@
 [
   {
+    "id": 24,
+    "name_en": "Black artificial leather Philipp cap.",
+    "name_ar": "كاب Philipp أسود من الجلد الصناعي.",
+    "description_en": "Premium black faux leather construction.\n- Iconic Philipp Klein metal logo on the front panel.\n- Distinctive metal decorative details on the sides.\n- Adjustable strap for a customized fit.\n- Structured six-panel design for durability and comfort.",
+    "description_ar": "خامة من الجلد الصناعي الأسود عالي الجودة.\n- شعار Philippn المعدنى الأيقونى على المقدمة.\n- تفاصيل زخرفية معدنية على الجانبين.\n- شريط خلفي قابل للتعديل لملاءمة مثالية.\n- تصميم بستة ألواح لملاءمة مريحة ومتينة.\n- متوفر بمقاس واحد يناسب الجميع.",
+    "price": 500,
+    "sale_price": null,
+    "badge_en": "",
+    "badge_ar": "",
+    "category": "caps",
+    "section": "featured",
+    "sizes": [
+      "One size"
+    ],
+    "image": "images/products/p-1795838037779-0.jpg",
+    "images": [
+      "images/products/p-1795838037779-0.jpg",
+      "images/products/p-1795838040009-1.jpg",
+      "images/products/p-1795838041466-2.jpg"
+    ],
+    "visible": true
+  },
+  {
     "id": 23,
     "name_en": "Balenciaga Black Cap",
     "name_ar": "كاب بالينسياغا اسود",
