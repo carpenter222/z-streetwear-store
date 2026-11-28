@@ -1,5 +1,26 @@
 [
   {
+    "id": 23,
+    "name_en": "Balenciaga Black Cap",
+    "name_ar": "كاب بالينسياغا اسود",
+    "description_en": "CLASSIC BLACK BALENCIAGA CAP, WITH WHITE BALENCIAGA EMBROIDERY PROMINENT FRONT AND BACK, WITH SHINY BLACK VISER WITH DISTINCTIVE HOLOGRAM DETAILS. A design that combines luxury",
+    "description_ar": "كاب بالينسياغا باللون الأسود الكلاسيكي، بتطريز BALENCIAGA أبيض بارز في الأمام والخلف، مع فيزر أسود لامع بتفاصيل هولوجرام مميزة. تصميم يجمع بين الفخامة",
+    "price": 400,
+    "sale_price": null,
+    "badge_en": "",
+    "badge_ar": "",
+    "category": "caps",
+    "section": "featured",
+    "sizes": [
+      "One size"
+    ],
+    "image": "images/products/p-1795837682902-0.png",
+    "images": [
+      "images/products/p-1795837682902-0.png"
+    ],
+    "visible": false
+  },
+  {
     "id": 22,
     "name_en": "DSQUARED2 White Black Cap",
     "name_ar": "كاب ابيض مع اسود بطراز دسكوير",
