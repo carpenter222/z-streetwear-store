@@ -1,5 +1,26 @@
 [
   {
+    "id": 21,
+    "name_en": "Black cap, carrohs",
+    "name_ar": "كاب اسود كاروهات",
+    "description_en": "An elegant design cap that combines luxurious black and the classic beige and brown pat on the front of the cap. It features a distinctive circular embroidery from the front, with a modern design that suits the casual and straightware views.",
+    "description_ar": "كاب بتصميم أنيق يجمع بين اللون الأسود الفخم ونقشة الكاروهات الكلاسيكية باللون البيج والبني على الجزء الأمامي من الكاب. يتميز بتطريز دائري مميز من الأمام، مع تصميم عصري يناسب الإطلالات الكاجوال والستريت وير.",
+    "price": 400,
+    "sale_price": null,
+    "badge_en": "",
+    "badge_ar": "",
+    "category": "caps",
+    "section": "featured",
+    "sizes": [
+      "One size"
+    ],
+    "image": "images/products/p-1795837148785-0.png",
+    "images": [
+      "images/products/p-1795837148785-0.png"
+    ],
+    "visible": false
+  },
+  {
     "id": 20,
     "name_en": "Los Angeles Blue Corduroy Cap",
     "name_ar": "كاب لوس أنجلوس ازرق",
